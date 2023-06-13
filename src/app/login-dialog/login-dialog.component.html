@@ -1,0 +1,39 @@
+<h1 mat-dialog-title>Log in</h1>
+<div mat-dialog-content>
+  <form ngForm #loginFormInstance="ngForm" fxLayout="column" (ngSubmit)="login(loginFormInstance)">
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput type="text" ngModel name="username" required>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" ngModel name="password" required>
+      <mat-error>Your password is required </mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!!loginFormInstance.invalid">Login</button> &nbsp;
+      <button mat-button mat-dialog-close color="accent" (click)="openRegisterDialog()">Register</button>
+      <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+  </form>
+
+</div>
+
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-raised-button (click)="login()">Login</button>-->
+<!--  <button mat-button mat-dialog-close>Cancel</button>-->
+<!--</div>-->
+<!--<form>-->
+<!--  <mat-form-field>-->
+<!--    <input matInput placeholder="Email" [(ngModel)]="email" name="email" required>-->
+<!--  </mat-form-field>-->
+<!--  <br>-->
+<!--  <mat-form-field>-->
+<!--    <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required>-->
+<!--  </mat-form-field>-->
+<!--  <br>-->
+<!--  <div class="button-container">-->
+<!--    <button mat-raised-button color="primary" (click)="login()">Login</button>-->
+<!--    <button mat-button mat-dialog-close>Cancel</button>-->
+<!--  </div>-->
+<!--</form>-->

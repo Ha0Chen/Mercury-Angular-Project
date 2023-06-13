@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" class="sticky">
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <div fxLayout="row">
+      <button mat-button>
+        <mat-icon>home</mat-icon>
+        <span class="logo">{{title}}</span>
+      </button>
+      <div *ngIf="!deviceXs" fxLayout="row">
+        <button mat-button routerLink="/home" routerLinkActive="my-active">Home</button>
+        <button mat-button routerLink="/courses" [queryParams]="{ deviceXs: deviceXs }" routerLinkActive="my-active">Courses</button>
+        <button mat-button>Contact us</button>
+      </div>
+    </div>
+    <div>
+<!--      <button *ngIf="deviceXs" mat-icon-button [matMenuTriggerFor]="menu">-->
+<!--        <mat-icon>more_vert</mat-icon>-->
+<!--      </button>-->
+<!--      <button-->
+<!--        *ngIf="!deviceXs"-->
+<!--        mat-button-->
+<!--        [matMenuTriggerFor]="menu"-->
+<!--        fxLayoutAlign="end"-->
+<!--      >-->
+<!--        Menu-->
+<!--      </button>-->
+      <span class="example-spacer"></span>
+      <button mat-raised-button (click)="openLoginDialog()">
+        <span>Login</span>
+      </button>
+    </div>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">
+    <button mat-button routerLink="/home" routerLinkActive="my-active">Home</button>
+    <button mat-button routerLink="/courses" routerLinkActive="my-active">Courses</button>
+    <button mat-button>Contact us</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
