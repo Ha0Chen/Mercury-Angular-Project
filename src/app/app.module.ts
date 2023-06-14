@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { NgChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -21,6 +21,8 @@ import { CoursesComponent } from './courses/courses.component';
 import { CoursesOverviewComponent } from './courses/courses-overview/courses-overview.component';
 import { CoursesDetailComponent } from './courses/courses-detail/courses-detail.component';
 import {MatGridListModule} from "@angular/material/grid-list";
+import {RouterModule} from "@angular/router";
+import { HighchartsChartModule } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -31,24 +33,27 @@ import {MatGridListModule} from "@angular/material/grid-list";
     HomeComponent,
     CoursesComponent,
     CoursesOverviewComponent,
-    CoursesDetailComponent,
+    CoursesDetailComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        CustomStyleModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatGridListModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CustomStyleModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatGridListModule,
+    NgChartsModule,
+    RouterModule,
+    HighchartsChartModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

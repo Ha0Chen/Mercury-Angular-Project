@@ -7,8 +7,8 @@
       </button>
       <div *ngIf="!deviceXs" fxLayout="row">
         <button mat-button routerLink="/home" routerLinkActive="my-active">Home</button>
-        <button mat-button routerLink="/courses" [queryParams]="{ deviceXs: deviceXs }" routerLinkActive="my-active">Courses</button>
-        <button mat-button>Contact us</button>
+        <button mat-button routerLink="/courses" routerLinkActive="my-active">Courses</button>
+        <button mat-button routerLink="/dashboard" routerLinkActive="my-active">Contact us</button>
       </div>
     </div>
     <div>

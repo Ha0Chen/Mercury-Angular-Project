@@ -14,8 +14,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {MatMenuModule} from "@angular/material/menu";
 @NgModule({
   imports: [
+    MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
@@ -33,6 +35,7 @@ import {MatButtonModule} from "@angular/material/button";
     FlexLayoutModule
   ],
   exports: [
+    MatMenuModule,
     MatButtonModule,
     MatToolbarModule,
     MatIconModule,
