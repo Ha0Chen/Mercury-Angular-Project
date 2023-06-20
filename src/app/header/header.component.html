@@ -24,9 +24,19 @@
 <!--        Menu-->
 <!--      </button>-->
       <span class="example-spacer"></span>
-      <button mat-raised-button (click)="openLoginDialog()">
-        <span>Login</span>
-      </button>
+      <ng-container *ngIf="!auth.user; else logoutTemplate">
+        <button mat-raised-button (click)="openLoginDialog()">
+          <span>Login</span>
+        </button>
+      </ng-container>
+      <!-- in angular 6, ngIf else        -->
+      <ng-template #logoutTemplate>
+        <span>Hello, {{auth.user?.username}} </span>
+        <button mat-raised-button (click)="auth.logout()">
+          <span>Logout</span>
+        </button>
+      </ng-template>
+
     </div>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">

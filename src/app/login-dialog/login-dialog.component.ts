@@ -17,14 +17,14 @@ export class LoginDialogComponent {
 
 
   login({value}: NgForm):void{
-    // this.auth.login(value).subscribe(res =>{
-    //   if (res.success){
-    //     this.auth.user = res.user;
-    //     localStorage.setItem('token', res.token);
-    //     // this.router.navigate(['/products']).catch();
-    //     this.dialogRef.close();
-    //   }
-    // });
+    this.auth.login(value).subscribe(res =>{
+      if (res.success){
+        this.auth.user = value;
+        localStorage.setItem('token', res.token);
+        // this.router.navigate(['/products']).catch();
+        this.dialogRef.close();
+      }
+    });
     console.log(value);
     this.dialogRef.close();
   }

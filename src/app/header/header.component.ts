@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {LoginDialogComponent} from "../login-dialog/login-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {AuthService} from "../shared/services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,8 @@ import {MatDialog} from "@angular/material/dialog";
 export class HeaderComponent {
   title:String = "E-ducate";
   @Input() deviceXs?:boolean;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog,
+              public auth: AuthService) {}
 
   openLoginDialog(): void {
     const dialogRef = this.dialog.open(LoginDialogComponent, {

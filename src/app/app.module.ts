@@ -14,7 +14,7 @@ import { MatListModule } from '@angular/material/list';
 import {HeaderComponent} from "./header/header.component";
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
 import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
@@ -23,6 +23,7 @@ import { CoursesDetailComponent } from './courses/courses-detail/courses-detail.
 import {MatGridListModule} from "@angular/material/grid-list";
 import {RouterModule} from "@angular/router";
 import { HighchartsChartModule } from 'highcharts-angular';
+import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -54,7 +55,12 @@ import { HighchartsChartModule } from 'highcharts-angular';
     RouterModule,
     HighchartsChartModule
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
