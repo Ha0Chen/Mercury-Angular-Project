@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment.development";
 import {User} from "../models/user";
 import {AuthResponse} from "../models/AuthResponse";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ import {AuthResponse} from "../models/AuthResponse";
 export class AuthService {
   user:User | null = null;
   constructor(
-    private httpClient:HttpClient
+    private httpClient:HttpClient,
+    private router:Router
   ) {
     if (localStorage.getItem("token")){
       this.checkLogin().subscribe(res =>{
@@ -46,6 +48,7 @@ export class AuthService {
 
 
   logout(){
+    this.router.navigate(['/courses']).catch();
     localStorage.removeItem('token');
     this.user = null;
   }

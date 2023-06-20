@@ -8,21 +8,10 @@
       <div *ngIf="!deviceXs" fxLayout="row">
         <button mat-button routerLink="/home" routerLinkActive="my-active">Home</button>
         <button mat-button routerLink="/courses" routerLinkActive="my-active">Courses</button>
-        <button mat-button routerLink="/dashboard" routerLinkActive="my-active">Contact us</button>
+        <button mat-button  routerLinkActive="my-active">Contact us</button>
       </div>
     </div>
     <div>
-<!--      <button *ngIf="deviceXs" mat-icon-button [matMenuTriggerFor]="menu">-->
-<!--        <mat-icon>more_vert</mat-icon>-->
-<!--      </button>-->
-<!--      <button-->
-<!--        *ngIf="!deviceXs"-->
-<!--        mat-button-->
-<!--        [matMenuTriggerFor]="menu"-->
-<!--        fxLayoutAlign="end"-->
-<!--      >-->
-<!--        Menu-->
-<!--      </button>-->
       <span class="example-spacer"></span>
       <ng-container *ngIf="!auth.user; else logoutTemplate">
         <button mat-raised-button (click)="openLoginDialog()">
@@ -31,10 +20,16 @@
       </ng-container>
       <!-- in angular 6, ngIf else        -->
       <ng-template #logoutTemplate>
-        <span>Hello, {{auth.user?.username}} </span>
-        <button mat-raised-button (click)="auth.logout()">
-          <span>Logout</span>
-        </button>
+        <span>Hello, </span>
+        <button mat-button [matMenuTriggerFor]="menu"><u>{{auth.user?.username}}</u></button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+          <button mat-menu-item (click)="auth.logout()">
+            <span>Logout</span>
+          </button>
+        </mat-menu>
+
+
       </ng-template>
 
     </div>
