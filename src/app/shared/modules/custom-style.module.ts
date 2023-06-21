@@ -15,6 +15,8 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 @NgModule({
   imports: [
     MatMenuModule,
@@ -32,7 +34,8 @@ import {MatMenuModule} from "@angular/material/menu";
     MatRadioModule,
     MatExpansionModule,
     CdkTableModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatPaginatorModule
   ],
   exports: [
     MatMenuModule,
@@ -50,7 +53,8 @@ import {MatMenuModule} from "@angular/material/menu";
     MatRadioModule,
     MatExpansionModule,
     CdkTableModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatPaginatorModule
   ]
 })
 export class CustomStyleModule { }

@@ -3,6 +3,10 @@ import {MediaMatcher} from "@angular/cdk/layout";
 import {ActivatedRoute} from "@angular/router";
 import {MediaChange, MediaObserver} from "@angular/flex-layout";
 import {Subscription} from "rxjs";
+import {ProductsService} from "../shared/services/products.service";
+import {Product} from "../shared/models/product";
+import {Page} from "../shared/models/page";
+import {PageEvent} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-courses',
@@ -10,24 +14,24 @@ import {Subscription} from "rxjs";
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit, OnDestroy{
-  longText:string = `The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog
-  from Japan. A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was
-  originally bred for hunting.`;
-
   deviceXs?:boolean;
   mediaSub?: Subscription;
+  products: Product[] | undefined;
+  totalPages: number | undefined;
+  totalElements:number | undefined;
   constructor(private route: ActivatedRoute,
-              public mediaObserver: MediaObserver) { }
-  // ngOnChanges() {
-  //   this.route.params.subscribe(params => {
-  //     this.deviceXs = params['deviceXs']; // Access the parameter value
-  //     // Perform any other operations using the parameter value
-  //   });
-  // }
+              public mediaObserver: MediaObserver,
+              private productsService: ProductsService
+  ) { }
   ngOnInit() {
     // @ts-ignore
     this.mediaSub = this.mediaObserver.asObservable().subscribe((change: MediaChange[]) => {
       this.deviceXs = change[0].mqAlias === "xs" ? true : false;
+    });
+    this.productsService.getProducts().subscribe(res => {
+      this.products = res.content;
+      this.totalPages = res.totalPages;
+      this.totalElements = res.totalElements;
     });
   }
   ngOnDestroy() {
@@ -47,5 +51,13 @@ export class CoursesComponent implements OnInit, OnDestroy{
   sideBarScroll() {
     let e = this.deviceXs ? 160 : 130;
     return e - this.topVal;
+  }
+
+  handlePageEvent(event:PageEvent) {
+    let page:number = event.pageIndex;
+    let size:number = event.pageSize;
+    this.productsService.getProductsByPage(page, size).subscribe(res => {
+      this.products = res.content;
+    });
   }
 }

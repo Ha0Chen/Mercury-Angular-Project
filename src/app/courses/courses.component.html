@@ -17,13 +17,24 @@
         <mat-list-item role="listitem" class="list-item" matRipple>Side Bar Item List</mat-list-item>
       </mat-list>
     </mat-drawer>
-    <!-- <p>Test</p> -->
+
     <mat-drawer-content>
-      <div class="example-sidenav-content" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-evenly center">
-        <ng-container *ngFor="let i of [].constructor(10)">
-          <app-courses-overview></app-courses-overview>
+      <div class="example-sidenav-content" fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center">
+<!--        <ng-container *ngFor="let i of [].constructor(10)">-->
+<!--          <app-courses-overview></app-courses-overview>-->
+<!--        </ng-container>-->
+        <ng-container *ngIf="products">
+          <app-courses-overview [product]="p" *ngFor="let p of products"></app-courses-overview>
         </ng-container>
       </div>
+      <mat-paginator [length]="totalElements!"
+                     [pageSize]="5"
+                     [pageSizeOptions]="[5, 10, 25, 100]"
+                     (page)="handlePageEvent($event)"
+                     aria-label="Select page">
+      </mat-paginator>
+
+
     </mat-drawer-content>
   </mat-drawer-container>
 </article>

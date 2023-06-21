@@ -48,8 +48,8 @@ export class AuthService {
 
 
   logout(){
-    this.router.navigate(['/courses']).catch();
     localStorage.removeItem('token');
     this.user = null;
+    this.router.navigate(['/courses']).catch();
   }
 }
