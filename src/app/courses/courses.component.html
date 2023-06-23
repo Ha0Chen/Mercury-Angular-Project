@@ -1,21 +1,91 @@
 <article [class.content]="!deviceXs" [class.content-mob]="deviceXs" (scroll)="onScroll($event)">
-  <mat-toolbar>
+  <mat-toolbar style="display: flex; flex-direction: row; justify-content: space-between; align-items: baseline">
     <button *ngIf="deviceXs" type="button" mat-icon-button (click)="drawer.toggle()">
       <mat-icon>menu</mat-icon>
     </button>
     Filter
+    <div style="text-align: right">
+      <mat-form-field>
+        <mat-label>Sort by</mat-label>
+        <mat-select [(ngModel)]="sortBy" (selectionChange)="filterProducts()">
+          <mat-option value="1">Price: Low to High</mat-option>
+          <mat-option value="2">Price: High to Low</mat-option>
+          <mat-option value="3">Sales: High to Low</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </mat-toolbar>
   <mat-drawer-container class="example-container">
-    <mat-drawer #drawer [mode]="deviceXs?'over':'side'" [opened]="deviceXs?false:true" position="start" fxFlex="20"
-                fxLayout="column" fxLayoutAlign="start space-between" [style.marginTop.px]="10" [style.top.px]="sideBarScroll()">
-      <mat-form-field>
+    <mat-drawer #drawer [mode]="deviceXs?'over':'side'" [opened]="deviceXs?false:true" position="start" fxFlex="70"
+                fxLayout="column" fxLayoutAlign="start start" [style.marginTop.px]="10" [style.top.px]="sideBarScroll()">
+      <mat-form-field style="width: 100%">
         <mat-label>Search</mat-label>
-        <input matInput>
+        <input matInput [(ngModel)]="searchContent">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-      <mat-list role="list" class="list-width" *ngFor="let i of [].constructor(20)">
-        <mat-list-item role="listitem" class="list-item" matRipple>Side Bar Item List</mat-list-item>
-      </mat-list>
+
+      <div>
+        <h3 class="filter-heading">Price</h3>
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-around; max-width: 20rem; align-items: baseline">
+        <mat-form-field style="width: 30%">
+          <mat-label>Min</mat-label>
+          <input matInput [(ngModel)]="curMinPrice">
+          <span matTextPrefix>$&nbsp;</span>
+        </mat-form-field>
+        <span>~</span>
+
+        <mat-form-field style="width: 30%">
+          <mat-label>Max</mat-label>
+          <input matInput [(ngModel)]="curMaxPrice">
+          <span matTextPrefix>$&nbsp;</span>
+        </mat-form-field>
+      </div>
+      <div style="text-align: center;">
+        <mat-slider min="0" [max]="maxPrice">
+          <input [(ngModel)]="curMinPrice"  matSliderStartThumb>
+          <input [(ngModel)]="curMaxPrice" matSliderEndThumb>
+        </mat-slider>
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+
+      <div>
+        <h3 class="filter-heading">Sale</h3>
+      </div>
+      <div style="display: flex; flex-direction: row; justify-content: space-around; max-width: 20rem; align-items: baseline">
+        <mat-form-field style="width: 30%">
+          <mat-label>Min</mat-label>
+          <input matInput [(ngModel)]="curMinSale">
+        </mat-form-field>
+        <span>~</span>
+
+        <mat-form-field style="width: 30%">
+          <mat-label>Max</mat-label>
+          <input matInput [(ngModel)]="curMaxSale">
+        </mat-form-field>
+      </div>
+      <div style="text-align: center;">
+        <mat-slider min="0" [max]="maxSale">
+          <input [(ngModel)]="curMinSale" matSliderStartThumb>
+          <input [(ngModel)]="curMaxSale" matSliderEndThumb>
+        </mat-slider>
+      </div>
+      <br>
+      <mat-divider></mat-divider>
+      <div>
+        <h3 class="filter-heading">Ratings</h3>
+      </div>
+
+      <div style="text-align: center">
+        <button mat-raised-button color="primary" (click)="filterProducts()">Submit</button>
+      </div>
+
+<!--      <mat-list role="list" class="list-width" *ngFor="let i of [].constructor(20)">-->
+<!--        <mat-list-item role="listitem" class="list-item" matRipple>Side Bar Item List</mat-list-item>-->
+<!--      </mat-list>-->
+
     </mat-drawer>
 
     <mat-drawer-content>

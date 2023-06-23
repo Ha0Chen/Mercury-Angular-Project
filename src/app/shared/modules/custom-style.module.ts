@@ -16,6 +16,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     CdkTableModule,
     FlexLayoutModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSliderModule
   ],
   exports: [
     MatMenuModule,
@@ -54,7 +56,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     MatExpansionModule,
     CdkTableModule,
     FlexLayoutModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSliderModule
   ]
 })
 export class CustomStyleModule { }

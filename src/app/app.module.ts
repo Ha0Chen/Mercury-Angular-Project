@@ -24,6 +24,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {RouterModule} from "@angular/router";
 import { HighchartsChartModule } from 'highcharts-angular';
 import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
+import {PriceRangePipe} from "./shared/pipe/price-range.pipe";
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
     HomeComponent,
     CoursesComponent,
     CoursesOverviewComponent,
-    CoursesDetailComponent
+    CoursesDetailComponent,
+    PriceRangePipe
   ],
   imports: [
     BrowserModule,

@@ -25,7 +25,6 @@ export class LoginDialogComponent {
         this.dialogRef.close();
       }
     });
-    console.log(value);
     this.dialogRef.close();
   }
 

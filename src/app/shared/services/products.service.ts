@@ -20,7 +20,9 @@ export class ProductsService {
     return this.httpClient.get<Page>(`${environment.api}/courses`);
   }
 
-  getProductsByPage(page:number, size:number ):Observable<Page>{
-    return this.httpClient.get<Page>(`${environment.api}/courses?page=${page}&size=${size}`);
+  getProductsByPage(page:number, size:number, minPrice:number, maxPrice:number, minSales:number, maxSales:number, name:string, sortBy:number):Observable<Page>{
+    return this.httpClient.get<Page>(
+      `${environment.api}/courses?page=${page}&size=${size}&minPrice=${minPrice}&maxPrice=${maxPrice}&minSales=${minSales}&maxSales=${maxSales}&name=${name}&sortType=${sortBy}`);
   }
+
 }
