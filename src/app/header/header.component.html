@@ -13,6 +13,7 @@
     </div>
     <div>
       <span class="example-spacer"></span>
+      <app-shopping-cart style="margin-right: 10px"></app-shopping-cart>
       <ng-container *ngIf="!auth.user; else logoutTemplate">
         <button mat-raised-button (click)="openLoginDialog()">
           <span>Login</span>

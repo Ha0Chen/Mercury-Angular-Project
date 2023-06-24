@@ -25,6 +25,7 @@ import {RouterModule} from "@angular/router";
 import { HighchartsChartModule } from 'highcharts-angular';
 import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 import {PriceRangePipe} from "./shared/pipe/price-range.pipe";
+import { ShoppingCartComponent } from './header/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {PriceRangePipe} from "./shared/pipe/price-range.pipe";
     CoursesComponent,
     CoursesOverviewComponent,
     CoursesDetailComponent,
-    PriceRangePipe
+    PriceRangePipe,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

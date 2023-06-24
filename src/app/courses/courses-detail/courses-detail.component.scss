@@ -1,0 +1,80 @@
+.container{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+}
+
+.product-detail-image-container{
+  order: 1;
+  .back-tag{
+    color: darkgrey;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 40px;
+  }
+  .product-detail-image {
+    margin-top: 40px;
+    margin-left: 40px;
+    width: 500px;
+    min-width: 300px;
+    height: 300px;
+    min-height: 200px;
+  }
+}
+
+.product-detail-info-container {
+  margin-top: 10px;
+  margin-left: 10px;
+  order: 2;
+  .product-detail-title {
+    font-size: 3em;
+    font-weight: 500;
+    color: rgba(0,0,0,0.87);
+  }
+  .product-detail-description{
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+}
+
+.product-detail-info-cart-button-container {
+  margin-left: 50px;
+  margin-right: 50px;
+  order: 3;
+  margin-top: 20px;
+  .product-detail-info-price {
+    font-size: 2em;
+    font-weight: 500;
+    font-family: "Google Sans",sans-serif;
+    color: rgba(0,0,0,0.87);
+    margin-bottom: 50px;
+  }
+}
+
+.example-tree-invisible {
+  display: none;
+}
+
+.example-tree ul,
+.example-tree li {
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style-type: none;
+}
+
+/*
+ * This padding sets alignment of the nested nodes.
+ */
+.example-tree .mat-nested-tree-node div[role=group] {
+  padding-left: 40px;
+}
+
+/*
+ * Padding for leaf nodes.
+ * Leaf nodes need to have padding so as to align with other non-leaf nodes
+ * under the same parent.
+ */
+.example-tree div[role=group] > .mat-tree-node {
+  padding-left: 40px;
+}
+

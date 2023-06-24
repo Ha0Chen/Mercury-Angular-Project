@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {CoursesComponent} from "./courses/courses.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {CoursesDetailComponent} from "./courses/courses-detail/courses-detail.component";
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
     //canActivate will lazy load the module while canLoad will not if condition is not met
     // canActivate:[AuthGuard]
+  },
+  {
+    path: 'courses/:id',
+    component: CoursesDetailComponent
   },
   // needs to put it in the end of array
   {

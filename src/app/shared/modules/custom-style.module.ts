@@ -17,7 +17,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSliderModule} from '@angular/material/slider';
-
+import {MatTreeModule} from '@angular/material/tree';
 @NgModule({
   imports: [
     MatMenuModule,
@@ -37,7 +37,8 @@ import {MatSliderModule} from '@angular/material/slider';
     CdkTableModule,
     FlexLayoutModule,
     MatPaginatorModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTreeModule,
   ],
   exports: [
     MatMenuModule,
@@ -57,7 +58,8 @@ import {MatSliderModule} from '@angular/material/slider';
     CdkTableModule,
     FlexLayoutModule,
     MatPaginatorModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTreeModule
   ]
 })
 export class CustomStyleModule { }
