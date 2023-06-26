@@ -9,6 +9,8 @@ import { AreaComponent } from './visuals/area/area.component';
 import {HighchartsChartModule} from "highcharts-angular";
 import { CardComponent } from './visuals/card/card.component';
 import { PieComponent } from './visuals/pie/pie.component';
+import { ShoppingCartListComponent } from './shopping-cart-list/shopping-cart-list.component';
+import { ShoppingCartItemComponent } from './shopping-cart-list/shopping-cart-item/shopping-cart-item.component';
 
 const routes:Routes = [
   {
@@ -18,11 +20,11 @@ const routes:Routes = [
       {
         path: 'visuals',
         component: VisualsComponent
+      },
+      {
+        path: 'cart',
+        component: ShoppingCartListComponent
       }
-      // {
-      //   path: 'video',
-      //   component: VideoComponent
-      // }
     ]
   }];
 
@@ -33,7 +35,9 @@ const routes:Routes = [
     VisualsComponent,
     AreaComponent,
     CardComponent,
-    PieComponent
+    PieComponent,
+    ShoppingCartListComponent,
+    ShoppingCartItemComponent,
   ],
   imports: [
     CommonModule,

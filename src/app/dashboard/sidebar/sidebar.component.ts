@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
   selector: 'app-dashboard-sidebar',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.scss']
 })
 export class DashboardSidebarComponent {
-
+  constructor(
+    public auth:AuthService
+  ) {
+  }
 }
