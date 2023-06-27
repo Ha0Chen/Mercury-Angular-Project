@@ -1,6 +1,6 @@
 import {RouterModule, Routes} from "@angular/router";
 import {DashboardComponent} from "./dashboard.component";
-import {CommonModule} from "@angular/common";
+import {CommonModule, NgOptimizedImage} from "@angular/common";
 import {NgModule} from "@angular/core";
 import {DashboardSidebarComponent} from './sidebar/sidebar.component';
 import {CustomStyleModule} from "../shared/modules/custom-style.module";
@@ -43,7 +43,8 @@ const routes:Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     CustomStyleModule,
-    HighchartsChartModule
+    HighchartsChartModule,
+    NgOptimizedImage
   ]
 })
 export class DashboardModule{};

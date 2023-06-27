@@ -5,19 +5,24 @@ import {environment} from "../../../environments/environment.development";
 import {User} from "../models/user";
 import {AuthResponse} from "../models/AuthResponse";
 import {Router} from "@angular/router";
+import {ProductsService} from "./products.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user:User | null = null;
+  roles: string[] = [];
   constructor(
     private httpClient:HttpClient,
-    private router:Router
+    private router:Router,
+    private ps:ProductsService
   ) {
     if (localStorage.getItem("token")){
       this.checkLogin().subscribe(res =>{
-        this.user = res;
+        console.log(res);
+        this.user = JSON.parse(res.user);
+        this.roles = res.roles;
       });
     }
 
@@ -38,12 +43,12 @@ export class AuthService {
     );
   }
 
-  checkLogin():Observable<User>{
+  checkLogin():Observable<AuthResponse>{
     /* for cookie/session based spring based server:
     * include a config object {withCredentials: true} in the req (add it to all reqs)
     * it will carry/set cookie for the req
     * */
-    return this.httpClient.get<User>(`${environment.api}/auth/checklogin`);
+    return this.httpClient.get<AuthResponse>(`${environment.api}/auth/checklogin`);
   }
 
 
@@ -51,5 +56,13 @@ export class AuthService {
     localStorage.removeItem('token');
     this.user = null;
     this.router.navigate(['/courses']).catch();
+    this.ps.clearCart();
   }
+
+
+  register(body:{username:string, password:string, teacher:boolean}):Observable<AuthResponse>{
+    return this.httpClient.post<AuthResponse>(`${environment.api}/auth/register`, body);
+  }
+
+
 }

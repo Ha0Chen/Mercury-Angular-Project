@@ -77,4 +77,14 @@ export class CoursesDetailComponent implements OnInit{
 
   hasChild = (_: number, node: Chapter) => !!node.sections && node.sections.length > 0;
 
+
+  addToCart(product: Product){
+    if (!this.ps.productInCart(product)){
+      this.ps.addToCart(product);
+    }
+  }
+
+  ifInCart(product:Product){
+    return this.ps.productInCart(product);
+  }
 }

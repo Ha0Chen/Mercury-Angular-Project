@@ -1,6 +1,7 @@
 
 <h1 mat-dialog-title>Register</h1>
 <div mat-dialog-content>
+  <div *ngIf="errorMessage" style="color: red"> * {{errorMessage}} </div>
   <form fxLayout="column" [formGroup]="registerFormGroup">
     <mat-form-field>
       <mat-label>Username</mat-label>
@@ -19,6 +20,8 @@
       </mat-form-field>
       <mat-error>{{registerFormGroup.get('passwordGroup')?.getError('passwordNotMatch')}}</mat-error>
     </div>
+
+    <mat-checkbox formControlName="isTeacher">Are you a teacher?</mat-checkbox>
     <p>
       <button type="submit" mat-raised-button color="primary" (click)="register()">Register</button>
       <button mat-button mat-dialog-close>Cancel</button>

@@ -10,6 +10,7 @@ import {RegisterDialogComponent} from "../register-dialog/register-dialog.compon
   styleUrls: ['./login-dialog.component.scss']
 })
 export class LoginDialogComponent {
+  errorMessage:string|null = null;
   constructor(public dialogRef: MatDialogRef<LoginDialogComponent>,
               private auth: AuthService,
               public dialog: MatDialog
@@ -19,13 +20,15 @@ export class LoginDialogComponent {
   login({value}: NgForm):void{
     this.auth.login(value).subscribe(res =>{
       if (res.success){
+        console.log(res);
         this.auth.user = value;
         localStorage.setItem('token', res.token);
-        // this.router.navigate(['/products']).catch();
+        this.auth.roles = res.roles;
         this.dialogRef.close();
+      }else{
+        this.errorMessage = "username or password is wrong";
       }
     });
-    this.dialogRef.close();
   }
 
   openRegisterDialog(): void {

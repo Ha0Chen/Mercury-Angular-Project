@@ -1,9 +1,12 @@
 <h1 mat-dialog-title>Log in</h1>
+
 <div mat-dialog-content>
+  <div *ngIf="errorMessage" style="color: red"> *{{errorMessage}} </div>
   <form ngForm #loginFormInstance="ngForm" fxLayout="column" (ngSubmit)="login(loginFormInstance)">
     <mat-form-field>
       <mat-label>Username</mat-label>
       <input matInput type="text" ngModel name="username" required>
+
     </mat-form-field>
     <mat-form-field>
       <mat-label>Password</mat-label>

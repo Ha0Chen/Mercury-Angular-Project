@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
+import {AuthService} from "../shared/services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register-dialog',
@@ -8,9 +10,12 @@ import {MatDialogRef} from "@angular/material/dialog";
   styleUrls: ['./register-dialog.component.scss']
 })
 export class RegisterDialogComponent implements OnInit{
+  errorMessage:string | null = null;
   registerFormGroup!:FormGroup;
   constructor(private fb: FormBuilder,
-              public dialogRef: MatDialogRef<RegisterDialogComponent>) {
+              public dialogRef: MatDialogRef<RegisterDialogComponent>,
+              private as: AuthService
+  ) {
 
   }
 
@@ -20,7 +25,8 @@ export class RegisterDialogComponent implements OnInit{
       passwordGroup: this.fb.group({
         password: ['', [Validators.required]],
         confirmPassword: ['', [Validators.required]]
-      }, {validators:[RegisterDialogComponent.passwordValidator]})
+      }, {validators:[RegisterDialogComponent.passwordValidator]}),
+      isTeacher: [false]
     });
   }
 
@@ -32,7 +38,22 @@ export class RegisterDialogComponent implements OnInit{
     //auth injection and logics..
     const username = this.registerFormGroup.get("username")?.value;
     const password = this.registerFormGroup.get("passwordGroup")?.value["password"];
-    console.log(username, password);
-    this.dialogRef.close();
+    const teacher = this.registerFormGroup.get("isTeacher")?.value;
+    // console.log(username, password, isTeacher);
+    this.as.register({username, password, teacher}).subscribe(res =>{
+      if (res.success){
+        this.as.user = {username: username, password: password};
+        localStorage.setItem('token', res.token);
+        this.as.roles = res.roles;
+        this.dialogRef.close();
+      }else{
+        this.errorMessage = res.message;
+      }
+
+      console.log(res);
+    });
+
+
+
   };
 }

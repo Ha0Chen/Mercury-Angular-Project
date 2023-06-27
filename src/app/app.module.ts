@@ -26,6 +26,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 import {PriceRangePipe} from "./shared/pipe/price-range.pipe";
 import { ShoppingCartComponent } from './header/shopping-cart/shopping-cart.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -40,25 +41,26 @@ import { ShoppingCartComponent } from './header/shopping-cart/shopping-cart.comp
     PriceRangePipe,
     ShoppingCartComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    CustomStyleModule,
-    LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
-    FormsModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatGridListModule,
-    NgChartsModule,
-    RouterModule,
-    HighchartsChartModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        CustomStyleModule,
+        LayoutModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatGridListModule,
+        NgChartsModule,
+        RouterModule,
+        HighchartsChartModule,
+        MatCheckboxModule
+    ],
   providers: [
     {
     provide: HTTP_INTERCEPTORS,

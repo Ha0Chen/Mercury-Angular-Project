@@ -11,7 +11,8 @@ import {Chapter} from "../models/chapter";
 })
 export class ProductsService {
   products:Product[] | undefined;
-
+  cart:Product[] = [];
+  totalPriceInCart:number = 0;
   constructor(
     private httpClient:HttpClient
   ) {
@@ -34,5 +35,45 @@ export class ProductsService {
     console.log(`${environment.api}/courses/content/${id}`);
     return this.httpClient.get<Chapter[]>(`${environment.api}/courses/content/${id}`);
   }
+
+  saveCart(){
+    localStorage.setItem('cart-items', JSON.stringify(this.cart));
+  }
+
+  addToCart(addedProduct: Product){
+    this.cart?.push(addedProduct);
+    this.saveCart();
+    this.totalPriceInCart += addedProduct.price;
+  }
+
+  loadCart(){
+    this.cart = JSON.parse(localStorage.getItem('cart-items') as any) || [];
+    let total:number = 0;
+    this.cart.forEach(item => {
+      total += item.price;
+    });
+    this.totalPriceInCart = total;
+  }
+
+  productInCart(product: Product){
+    return this.cart.findIndex((item) => item.id === product.id) > -1;
+  }
+
+  removeProduct(product: Product){
+    const index = this.cart.findIndex(item => item.id === product.id);
+    if (index > - 1){
+      this.cart.splice(index, 1);
+      this.saveCart();
+      this.totalPriceInCart -= product.price;
+    }
+  }
+
+  clearCart(){
+    localStorage.removeItem('cart-items');
+    this.loadCart();
+  }
+
+
+
 
 }

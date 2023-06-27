@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../shared/services/auth.service";
 
 @Component({
@@ -6,9 +6,13 @@ import {AuthService} from "../../shared/services/auth.service";
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class DashboardSidebarComponent {
+export class DashboardSidebarComponent implements OnInit{
   constructor(
     public auth:AuthService
   ) {
+  }
+
+  ngOnInit(): void {
+    console.log(this.auth.roles);
   }
 }

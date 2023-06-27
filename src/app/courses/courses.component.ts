@@ -47,6 +47,8 @@ export class CoursesComponent implements OnInit, OnDestroy{
       this.curMaxPrice = this.maxPrice;
       this.curMaxSale = this.maxSale;
     });
+
+    this.productsService.loadCart();
   }
   ngOnDestroy() {
     // @ts-ignore
