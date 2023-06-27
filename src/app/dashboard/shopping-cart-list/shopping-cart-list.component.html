@@ -1,0 +1,22 @@
+<ng-container *ngIf="ps.cart.length;else NoItemsInCart">
+  <div>
+    <h1>Total: {{ps.totalPriceInCart | currency:'USD'}}</h1>
+    <button mat-raised-button color="primary" routerLink="/payment">CHECK OUT</button>
+  </div>
+  <app-shopping-cart-item [item]="p" *ngFor="let p of ps.cart"></app-shopping-cart-item>
+</ng-container>
+
+
+<ng-template #NoItemsInCart>
+  <h1> Your Shopping Cart is Empty.</h1>
+</ng-template>
+
+
+
+
+
+
+
+
+
+

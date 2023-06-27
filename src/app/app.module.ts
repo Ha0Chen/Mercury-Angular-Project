@@ -27,6 +27,8 @@ import {AuthInterceptor} from "./shared/interceptors/auth.interceptor";
 import {PriceRangePipe} from "./shared/pipe/price-range.pipe";
 import { ShoppingCartComponent } from './header/shopping-cart/shopping-cart.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { PaymentComponent } from './payment/payment.component';
+import {MatStepperModule} from "@angular/material/stepper";
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
     CoursesOverviewComponent,
     CoursesDetailComponent,
     PriceRangePipe,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    PaymentComponent
   ],
     imports: [
         BrowserModule,
@@ -59,7 +62,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         NgChartsModule,
         RouterModule,
         HighchartsChartModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatStepperModule
     ],
   providers: [
     {

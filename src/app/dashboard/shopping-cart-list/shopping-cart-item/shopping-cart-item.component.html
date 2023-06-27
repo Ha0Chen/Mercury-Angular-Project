@@ -1,0 +1,20 @@
+<ng-container *ngIf="item">
+  <mat-card style="margin-top: 10px; margin-bottom: 20px">
+    <mat-card-header>
+      <mat-card-title-group>
+        <mat-card-title>{{item.name}}</mat-card-title>
+        <mat-card-subtitle>Teacher Name</mat-card-subtitle>
+        <img mat-card-sm-image [src]="item.image">
+      </mat-card-title-group>
+    </mat-card-header>
+<!--    <mat-card-content>-->
+<!--      {{item.description}}-->
+<!--    </mat-card-content>-->
+    <mat-card-actions align="end">
+      <h2 style="margin: 5px 0 0 5px">{{item.price | currency:'USD'}}</h2>
+      <div fxFlex></div>
+      <button mat-raised-button color="warn" (click)="removeFromCart(item)">REMOVE</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
+

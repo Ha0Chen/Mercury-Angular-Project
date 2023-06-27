@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {CoursesComponent} from "./courses/courses.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CoursesDetailComponent} from "./courses/courses-detail/courses-detail.component";
+import {PaymentComponent} from "./payment/payment.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'courses/:id',
     component: CoursesDetailComponent
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent
   },
   // needs to put it in the end of array
   {

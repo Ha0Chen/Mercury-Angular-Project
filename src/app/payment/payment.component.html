@@ -1,0 +1,85 @@
+<div class="container">
+<!--  <a class="back-tag" href="#" onclick="window.history.back(); return false;"><u>← Back</u></a>-->
+  <div class="payment-methods-container">
+    <h1 style="margin-top: 20px">Payment</h1>
+    <br>
+    <mat-divider></mat-divider>
+
+    <mat-stepper [linear]="isLinear" #stepper>
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Billing Address</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          </mat-form-field>
+          <div>
+            <mat-form-field>
+              <mat-label>Select</mat-label>
+              <mat-select>
+                <mat-option value="one">First option</mat-option>
+                <mat-option value="two">Second option</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+
+          <div>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" label="Payment Method">
+        <form [formGroup]="secondFormGroup">
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+
+  </div>
+
+  <div class="order-summary-container">
+    <mat-card style="margin-top: 70px;">
+      <mat-card-header>
+        <mat-card-title>Order Summary</mat-card-title>
+      </mat-card-header>
+      <br>
+      <mat-card-content>
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+          <div>Subtotal</div>
+          <div>{{totalPrice | currency:'USD'}}</div>
+        </div>
+
+        <div>
+          <br>
+          <mat-divider></mat-divider>
+        </div>
+
+        <div style="display: flex; flex-direction: row; justify-content: space-between">
+          <div>TOTAL</div>
+          <div style="font-weight: bold">{{totalPrice | currency:'USD'}}</div>
+        </div>
+
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+
