@@ -1,42 +1,84 @@
+
 <div class="container">
-<!--  <a class="back-tag" href="#" onclick="window.history.back(); return false;"><u>← Back</u></a>-->
+  <!--  <a class="back-tag" href="#" onclick="window.history.back(); return false;"><u>← Back</u></a>-->
   <div class="payment-methods-container">
     <h1 style="margin-top: 20px">Payment</h1>
     <br>
     <mat-divider></mat-divider>
-
-    <mat-stepper [linear]="isLinear" #stepper>
+    <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
       <mat-step [stepControl]="firstFormGroup">
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Billing Address</ng-template>
-          <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-          </mat-form-field>
           <div>
-            <mat-form-field>
-              <mat-label>Select</mat-label>
-              <mat-select>
-                <mat-option value="one">First option</mat-option>
-                <mat-option value="two">Second option</mat-option>
-              </mat-select>
-            </mat-form-field>
+            <div style="margin-top: 20px">
+              <mat-form-field appearance="outline" style="min-width: 18rem;">
+                <mat-label>Country</mat-label>
+                <mat-select formControlName="countryCtrl" required>
+                  <mat-option value="US">United States</mat-option>
+                  <mat-option value="CN">China</mat-option>
+                  <mat-option value="JP">Japan</mat-option>
+                  <mat-option value="UK">United Kingdom</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field appearance="outline" style="min-width: 18rem;">
+                <mat-label>Zip Code</mat-label>
+                <input type="text" matInput placeholder="5 digit" formControlName="zipcodeCtrl" required maxlength="5">
+              </mat-form-field>
+            </div>
           </div>
-
 
           <div>
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
+
       <mat-step [stepControl]="secondFormGroup" label="Payment Method">
         <form [formGroup]="secondFormGroup">
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
+
+          <mat-accordion>
+            <mat-radio-group formControlName="paymentMethodCtrl">
+              <mat-expansion-panel #panel1 style="margin-top: 20px">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+
+                    <mat-radio-button value="Credit/Debit Card">
+                      <!--                      <span style="font-weight: bold">Credit/Debit Card</span>-->
+                      Credit/Debit Card
+                    </mat-radio-button>
+
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Name on card</mat-label>
+                  <input matInput formControlName="nameCtrl" placeholder="Name on card"
+                         required>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline" style="width: 100%;">
+                  <mat-label>Card number</mat-label>
+                  <input matInput formControlName="cardNumCtrl" placeholder="1234 5678 9012 3456"
+                         required maxlength="16">
+                </mat-form-field>
+
+                <div style="display: flex; flex-direction: row; justify-content: space-between">
+                  <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>Expiry date</mat-label>
+                    <input matInput formControlName="expiryDateCtrl" placeholder="MM/YY"
+                           required maxlength="5">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" style="width: 45%;">
+                    <mat-label>CVC/CVV</mat-label>
+                    <input matInput formControlName="cvcCtrl" placeholder="CVC"
+                           required maxlength="4">
+                  </mat-form-field>
+                </div>
+              </mat-expansion-panel>
+            </mat-radio-group>
+          </mat-accordion>
+          <div style="margin-top: 20px">
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </div>
@@ -44,19 +86,18 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
         <div>
+          <div style="margin-top: 20px">
+            <button mat-raised-button color="accent" (click)="completeCheckout()"> Complete Checkout </button>
+          </div>
           <button mat-button matStepperPrevious>Back</button>
           <button mat-button (click)="stepper.reset()">Reset</button>
         </div>
       </mat-step>
     </mat-stepper>
-
-
   </div>
-
   <div class="order-summary-container">
-    <mat-card style="margin-top: 70px;">
+    <mat-card>
       <mat-card-header>
         <mat-card-title>Order Summary</mat-card-title>
       </mat-card-header>
@@ -81,5 +122,6 @@
     </mat-card>
   </div>
 </div>
+
 
 

@@ -29,6 +29,8 @@ import { ShoppingCartComponent } from './header/shopping-cart/shopping-cart.comp
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { PaymentComponent } from './payment/payment.component';
 import {MatStepperModule} from "@angular/material/stepper";
+import { PaymentSuccessComponent } from './payment/payment-success/payment-success.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
@@ -42,29 +44,31 @@ import {MatStepperModule} from "@angular/material/stepper";
     CoursesDetailComponent,
     PriceRangePipe,
     ShoppingCartComponent,
-    PaymentComponent
+    PaymentComponent,
+    PaymentSuccessComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        CustomStyleModule,
-        LayoutModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule,
-        FormsModule,
-        HttpClientModule,
-        ReactiveFormsModule,
-        MatGridListModule,
-        NgChartsModule,
-        RouterModule,
-        HighchartsChartModule,
-        MatCheckboxModule,
-        MatStepperModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    CustomStyleModule,
+    LayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    MatGridListModule,
+    NgChartsModule,
+    RouterModule,
+    HighchartsChartModule,
+    MatCheckboxModule,
+    MatStepperModule,
+    MatProgressSpinnerModule
+  ],
   providers: [
     {
     provide: HTTP_INTERCEPTORS,

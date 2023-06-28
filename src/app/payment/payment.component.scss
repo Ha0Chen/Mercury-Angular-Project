@@ -2,44 +2,26 @@
   display: flex;
   justify-content: space-around;
   flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: flex-start;
+}
+
+mat-stepper{
+ width: 100%;
 }
 
 .payment-methods-container{
-  flex-shrink: 0; /* Prevents the item from shrinking */
+  flex-shrink: 1; /* Prevents the item from shrinking */
   flex-grow: 0; /* Prevents the item from growing */
-  flex-basis: 60%; /* Sets the initial size of the item */
+  flex-basis: auto; /* Sets the initial size of the item */
 }
 
 .order-summary-container{
-  flex-shrink: 0; /* Prevents the item from shrinking */
+  flex-shrink: 1; /* Prevents the item from shrinking */
   flex-grow: 0; /* Prevents the item from growing */
-  flex-basis: 20%; /* Sets the initial size of the item */
+  flex-basis: 30%; /* Sets the initial size of the item */
 }
 
-.product-detail-image-container{
-  order: 1;
 
-  .back-tag{
-    color: darkgrey;
-    margin-top: 5px;
-    margin-left: 10px;
-    margin-bottom: 40px;
-  }
-}
-
-.product-detail-info-container {
-  margin-top: 10px;
-  margin-left: 10px;
-  order: 2;
-  flex-basis: 30%;
-  .product-detail-title {
-    font-size: 3em;
-    font-weight: 500;
-    color: rgba(0,0,0,0.87);
-  }
-  .product-detail-description{
-    margin-top: 20px;
-    margin-bottom: 40px;
-  }
-}
 
