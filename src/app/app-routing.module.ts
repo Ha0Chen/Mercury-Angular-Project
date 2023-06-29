@@ -18,7 +18,7 @@ const routes: Routes = [
     component: CoursesComponent
   },
   {
-    path: 'dashboard',
+    path: 'user',
     // lazy loading syntax
     // angular 7 and before
     //loadChildren: './prime/prime.module#PrimeModule'

@@ -24,7 +24,7 @@
         <span>Hello, </span>
         <button mat-button [matMenuTriggerFor]="menu"><u>{{auth.user?.username}}</u></button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item routerLink="/dashboard">Dashboard</button>
+          <button mat-menu-item routerLink="/user">Management</button>
           <button mat-menu-item (click)="auth.logout()">
             <span>Logout</span>
           </button>

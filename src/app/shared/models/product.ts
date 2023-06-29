@@ -4,5 +4,6 @@ export interface Product{
   description:string,
   price:number,
   sales:number,
-  image:string
+  image:string,
+  teacherName:string
 }

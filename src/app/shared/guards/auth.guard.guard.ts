@@ -38,7 +38,7 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    !this.auth.user && this.dialog.open(LoginDialogComponent, {
+    !localStorage.getItem('token') && this.dialog.open(LoginDialogComponent, {
       width: '300px'
     }).afterClosed().subscribe(result => {
       // Perform any necessary actions after the dialog is closed

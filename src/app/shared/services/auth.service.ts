@@ -18,14 +18,17 @@ export class AuthService {
     private router:Router,
     private ps:ProductsService
   ) {
+    this.initialize();
+  }
+  //helper function for guard to initial user and roles
+  initialize(){
     if (localStorage.getItem("token")){
       this.checkLogin().subscribe(res =>{
         console.log(res);
         this.user = JSON.parse(res.user);
-        this.roles = res.roles;
+        this.roles = res.roles.map(res=> res.substring(5));
       });
     }
-
   }
 
   login(user:User):Observable<AuthResponse>{
@@ -62,6 +65,18 @@ export class AuthService {
 
   register(body:{username:string, password:string, teacher:boolean}):Observable<AuthResponse>{
     return this.httpClient.post<AuthResponse>(`${environment.api}/auth/register`, body);
+  }
+
+  isTeacher():boolean{
+    return this.roles.findIndex(res => {
+      return res.includes("TEACHER");
+    }) > -1;
+  }
+
+  isAdmin(){
+    return this.roles.findIndex(res => {
+      return res.includes("ADMIN");
+    }) > -1;
   }
 
 

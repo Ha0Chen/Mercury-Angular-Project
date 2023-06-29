@@ -11,15 +11,21 @@
 
   <h2 matSubheader>Pages</h2>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="./visuals">
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="./dashboard">
     <mat-icon>dashboard</mat-icon>Dashboard</a>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/cart">
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="./cart">
     <mat-icon>shopping_cart</mat-icon>Shopping Cart</a>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard/my-reviews">
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-reviews">
     <mat-icon>reviews</mat-icon>Reviews
   </a>
+  <ng-container *ngIf="auth.isTeacher()">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-courses">
+      <mat-icon>folder_special</mat-icon>Published Courses
+    </a>
+  </ng-container>
+
 
 <!--  <mat-divider></mat-divider>-->
 

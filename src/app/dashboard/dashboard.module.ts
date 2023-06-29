@@ -11,6 +11,8 @@ import { CardComponent } from './visuals/card/card.component';
 import { PieComponent } from './visuals/pie/pie.component';
 import { ShoppingCartListComponent } from './shopping-cart-list/shopping-cart-list.component';
 import { ShoppingCartItemComponent } from './shopping-cart-list/shopping-cart-item/shopping-cart-item.component';
+import { CoursesManagementComponent } from './courses-management/courses-management.component';
+import {TeacherGuard} from "../shared/guards/teacher.guard";
 
 const routes:Routes = [
   {
@@ -18,12 +20,17 @@ const routes:Routes = [
     component: DashboardComponent,
     children: [
       {
-        path: 'visuals',
+        path: 'dashboard',
         component: VisualsComponent
       },
       {
         path: 'cart',
         component: ShoppingCartListComponent
+      },
+      {
+        path: 'my-courses',
+        component: CoursesManagementComponent,
+        canActivate: [TeacherGuard]
       }
     ]
   }];
@@ -38,6 +45,7 @@ const routes:Routes = [
     PieComponent,
     ShoppingCartListComponent,
     ShoppingCartItemComponent,
+    CoursesManagementComponent,
   ],
   imports: [
     CommonModule,
