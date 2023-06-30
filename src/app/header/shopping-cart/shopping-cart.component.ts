@@ -15,7 +15,7 @@ export class ShoppingCartComponent implements OnInit{
   }
 
   jumpToCartList() {
-    this.router.navigate(['/dashboard/cart']).catch();
+    this.router.navigate(['/user/cart']).catch();
   }
 
   ngOnInit(): void {

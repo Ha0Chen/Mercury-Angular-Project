@@ -13,6 +13,10 @@ import { ShoppingCartListComponent } from './shopping-cart-list/shopping-cart-li
 import { ShoppingCartItemComponent } from './shopping-cart-list/shopping-cart-item/shopping-cart-item.component';
 import { CoursesManagementComponent } from './courses-management/courses-management.component';
 import {TeacherGuard} from "../shared/guards/teacher.guard";
+import {MatSortModule} from "@angular/material/sort";
+import { EditCourseComponent } from './courses-management/edit-course/edit-course.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 const routes:Routes = [
   {
@@ -46,13 +50,18 @@ const routes:Routes = [
     ShoppingCartListComponent,
     ShoppingCartItemComponent,
     CoursesManagementComponent,
+    EditCourseComponent,
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     CustomStyleModule,
     HighchartsChartModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    MatSortModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatCheckboxModule
   ]
 })
 export class DashboardModule{};

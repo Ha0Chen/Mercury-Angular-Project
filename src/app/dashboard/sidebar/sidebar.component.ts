@@ -13,6 +13,6 @@ export class DashboardSidebarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.auth.roles);
+    // console.log(this.auth.roles);
   }
 }

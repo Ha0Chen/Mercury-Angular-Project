@@ -1,5 +1,5 @@
 export interface Chapter {
   name:string;
-  url:string | undefined;
+  url:string | null;
   sections: Chapter[];
 }

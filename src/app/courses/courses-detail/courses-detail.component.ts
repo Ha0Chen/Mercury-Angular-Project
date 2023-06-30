@@ -66,13 +66,16 @@ export class CoursesDetailComponent implements OnInit{
     this.ar.paramMap.pipe(switchMap(params => {
       this.id = params.get("id") || '1';
       return this.ps.getProductById(this.id);
-    })).subscribe(res => this.product = res);
-    // console.log(this.product);
-
-    this.ps.getProductDetailById(this.id!).subscribe(res => {
-      this.dataSource.data = res;
-    })
-    // this.dataSource.data = TREE_DATA;
+    })).subscribe(res => {
+      this.product = res;
+      if (this.product !== undefined){
+        let chapterArr: Chapter[] = [];
+        this.product.content.forEach(res=> {
+          chapterArr.push(JSON.parse(res.data));
+        });
+        this.dataSource.data = chapterArr;
+      }
+    });
   }
 
   hasChild = (_: number, node: Chapter) => !!node.sections && node.sections.length > 0;
