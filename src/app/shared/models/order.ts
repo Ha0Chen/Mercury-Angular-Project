@@ -1,7 +1,7 @@
 import {Product} from "./product";
 
 export interface Order {
-  username:string,
+  userId: number,
   country: string,
   zipcode: number,
   paymentMethod: string,
@@ -9,5 +9,6 @@ export interface Order {
   cardNum: string,
   expiryDate: string,
   cvc: number,
+  purchaseDate: Date,
   products: Product[]
 }

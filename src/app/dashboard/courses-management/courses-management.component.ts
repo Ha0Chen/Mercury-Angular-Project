@@ -4,12 +4,13 @@ import {UserService} from "../../shared/services/user.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {Product} from "../../shared/models/product";
 import {animate, state, style, transition, trigger} from "@angular/animations";
-import {MatTableDataSource} from "@angular/material/table";
+import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
 import {LoginDialogComponent} from "../../login-dialog/login-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditCourseComponent} from "./edit-course/edit-course.component";
 import {switchMap} from "rxjs";
+import {AddCourseComponent} from "./add-course/add-course.component";
 @Component({
   selector: 'app-courses-management',
   templateUrl: './courses-management.component.html',
@@ -28,6 +29,7 @@ export class CoursesManagementComponent implements OnInit{
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Product | null | undefined;
   @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild('myTable') table!: MatTable<any>;
   constructor(
     private as: AuthService,
     private ps: ProductsService,
@@ -37,13 +39,16 @@ export class CoursesManagementComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.getCoursesData();
+  }
+
+  getCoursesData(){
     if (this.as.user !== null){
       this.us.getCoursesByTeacherName(this.as.user.username).subscribe(res =>{
         this.dataSource = new MatTableDataSource<Product>(res);
         this.dataSource.sort = this.sort;
       });
     }
-
   }
 
   applyFilter(event: Event) {
@@ -60,10 +65,29 @@ export class CoursesManagementComponent implements OnInit{
 
     dialogRef.afterClosed().subscribe(result => {
       // Perform any necessary actions after the dialog is closed
+      this.getCoursesData();
+      this.table.renderRows();
     });
   }
 
   delete(id:number) {
+    console.log(id);
+    this.ps.deleteProduct(id).subscribe(res =>{
+      console.log(res);
+      this.getCoursesData();
+      this.table.renderRows();
+    })
+  }
 
+  openAddDialog() {
+    const dialogRef = this.dialog.open(AddCourseComponent, {
+      width: '600px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Perform any necessary actions after the dialog is closed
+      this.getCoursesData();
+      this.table.renderRows();
+    });
   }
 }

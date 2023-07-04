@@ -40,6 +40,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .example-element-description {
   padding: 16px;
+  //width: 800px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .example-element-description-attribution {

@@ -32,9 +32,21 @@ export class ProductsService {
   }
 
   getProductDetailById(id: string):Observable<Chapter[]>{
-    console.log(`${environment.api}/courses/content/${id}`);
     return this.httpClient.get<Chapter[]>(`${environment.api}/courses/content/${id}`);
   }
+
+  updateProduct(product: Product):Observable<Product>{
+    return this.httpClient.put<Product>(`${environment.api}/courses`, product);
+  }
+
+  addProduct(product: Product):Observable<Product>{
+    return this.httpClient.post<Product>(`${environment.api}/courses`, product);
+  }
+
+  deleteProduct(id:number):Observable<Response>{
+    return this.httpClient.delete<Response>(`${environment.api}/courses/${id}`);
+  }
+
 
   saveCart(){
     localStorage.setItem('cart-items', JSON.stringify(this.cart));

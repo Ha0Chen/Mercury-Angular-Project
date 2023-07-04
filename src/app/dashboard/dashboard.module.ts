@@ -17,6 +17,8 @@ import {MatSortModule} from "@angular/material/sort";
 import { EditCourseComponent } from './courses-management/edit-course/edit-course.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import { AddCourseComponent } from './courses-management/add-course/add-course.component';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 
 const routes:Routes = [
   {
@@ -51,6 +53,7 @@ const routes:Routes = [
     ShoppingCartItemComponent,
     CoursesManagementComponent,
     EditCourseComponent,
+    AddCourseComponent,
   ],
   imports: [
     CommonModule,
@@ -61,7 +64,8 @@ const routes:Routes = [
     MatSortModule,
     FormsModule,
     ReactiveFormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    NgxMatFileInputModule
   ]
 })
 export class DashboardModule{};

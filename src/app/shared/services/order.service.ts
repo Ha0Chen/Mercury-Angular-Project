@@ -1,4 +1,8 @@
 import {Injectable} from "@angular/core";
+import {Order} from "../models/order";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
+import {environment} from "../../../environments/environment.development";
 
 @Injectable(
   {
@@ -7,4 +11,12 @@ import {Injectable} from "@angular/core";
 )
 export class OrderService{
 
+  constructor(
+    private httpClient: HttpClient
+  ) {
+  }
+
+  getOrdersByUserId(id:number):Observable<Order[]>{
+    return this.httpClient.get<Order[]>(`${environment.api}/orders/user/${id}`);
+  }
 }

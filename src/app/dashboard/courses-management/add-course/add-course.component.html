@@ -1,41 +1,38 @@
-<h1 mat-dialog-title>Edit Course</h1>
+<h1 mat-dialog-title>Add Course</h1>
 <div mat-dialog-content>
-  <div *ngIf="errorMessage" style="color: red"> * {{errorMessage}} </div>
-  <form fxLayout="column" [formGroup]="editCourseFormGroup">
-    <div style="margin-bottom: 20px; display: flex; justify-content: space-around">
-      <h3>ID:  {{data.id}}</h3>
-      <h3>Sales:  {{data.sales}}</h3>
-    </div>
+  <form fxLayout="column" [formGroup]="addCourseFormGroup" enctype="multipart/form-data">
     <div style="display: flex; justify-content: space-between">
       <mat-form-field>
         <mat-label>Name</mat-label>
         <input type="text" matInput formControlName="name">
-        <mat-error *ngIf="editCourseFormGroup.get('name')?.getError('required')">Name is required</mat-error>
+        <mat-error *ngIf="addCourseFormGroup.get('name')?.getError('required')">Name is required</mat-error>
       </mat-form-field>
+
       <mat-form-field>
         <mat-label>Price</mat-label>
         <input type="text" matInput formControlName="price">
-        <mat-error *ngIf="editCourseFormGroup.get('price')?.getError('required')">Price is required</mat-error>
+        <mat-error *ngIf="addCourseFormGroup.get('price')?.getError('required')">Price is required</mat-error>
+        <mat-error *ngIf="addCourseFormGroup.get('price')?.getError('pattern')">Price should be a number >= 0</mat-error>
       </mat-form-field>
     </div>
 
     <mat-form-field appearance="outline">
       <mat-label>Image URL</mat-label>
       <input type="text" matInput formControlName="image">
-      <mat-error *ngIf="editCourseFormGroup.get('image')?.getError('required')">Image URL is required</mat-error>
+      <mat-error *ngIf="addCourseFormGroup.get('image')?.getError('required')">Image URL is required</mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <mat-label>Description</mat-label>
       <textarea rows="5" type="text" matInput formControlName="description"></textarea>
-      <mat-error *ngIf="editCourseFormGroup.get('description')?.getError('required')">Description is required</mat-error>
+      <mat-error *ngIf="addCourseFormGroup.get('description')?.getError('required')">Description is required</mat-error>
     </mat-form-field>
     <mat-form-field>
       <mat-label>Content</mat-label>
       <textarea rows="13" type="text" matInput formControlName="content"></textarea>
-      <mat-error *ngIf="editCourseFormGroup.get('content')?.getError('required')">Content is required</mat-error>
+      <mat-error *ngIf="addCourseFormGroup.get('content')?.getError('required')">Content is required</mat-error>
     </mat-form-field>
-    <mat-error>{{editCourseFormGroup.getError('ContentFormatError')}}</mat-error>
+    <mat-error>{{addCourseFormGroup.getError('ContentFormatError')}}</mat-error>
     <button mat-raised-button color="accent" (click)="showPreview()">Content Preview</button>
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
@@ -77,10 +74,9 @@
       </mat-nested-tree-node>
     </mat-tree>
 
-    <div style="display: flex; justify-content: space-around;margin-top: 20px">
+    <div style="display: flex; justify-content: space-around; margin-top: 20px">
       <button type="submit" mat-raised-button color="primary" (click)="save()">Save</button>
       <button mat-button mat-dialog-close>Cancel</button>
     </div>
-
   </form>
 </div>

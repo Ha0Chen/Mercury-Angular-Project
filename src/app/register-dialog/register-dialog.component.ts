@@ -44,7 +44,7 @@ export class RegisterDialogComponent implements OnInit{
       if (res.success){
         this.as.user = {username: username, password: password};
         localStorage.setItem('token', res.token);
-        this.as.roles = res.roles;
+        this.as.roles = res.roles.map(res=> res.substring(5));
         this.dialogRef.close();
       }else{
         this.errorMessage = res.message;
