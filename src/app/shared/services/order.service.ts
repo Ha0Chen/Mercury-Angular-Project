@@ -19,4 +19,8 @@ export class OrderService{
   getOrdersByUserId(id:number):Observable<Order[]>{
     return this.httpClient.get<Order[]>(`${environment.api}/orders/user/${id}`);
   }
+
+  save(order:Order):Observable<Order>{
+    return this.httpClient.post<Order>(`${environment.api}/orders`,order);
+  }
 }

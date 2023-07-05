@@ -1,11 +1,15 @@
-import { Injectable } from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment.development";
 import {User} from "../models/user";
 import {AuthResponse} from "../models/AuthResponse";
-import {Router} from "@angular/router";
+import {ActivatedRouteSnapshot, provideRouter, ResolveFn, Router, RouterStateSnapshot} from "@angular/router";
 import {ProductsService} from "./products.service";
+import {bootstrapApplication} from "@angular/platform-browser";
+import {OrdersComponent} from "../../dashboard/orders/orders.component";
+import {AppModule} from "../../app.module";
+import {DashboardModule} from "../../dashboard/dashboard.module";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +25,8 @@ export class AuthService {
     this.initialize();
   }
   //helper function for guard to initial user and roles
-  initialize(){
-    if (localStorage.getItem("token")){
+  public initialize(){
+    if (localStorage.getItem("token") && this.user === null){
       this.checkLogin().subscribe(res =>{
         console.log(res);
         this.user = JSON.parse(res.user);
@@ -78,6 +82,5 @@ export class AuthService {
       return res.includes("ADMIN");
     }) > -1;
   }
-
-
 }
+

@@ -19,6 +19,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddCourseComponent } from './courses-management/add-course/add-course.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { OrdersComponent } from './orders/orders.component';
 
 const routes:Routes = [
   {
@@ -37,6 +38,10 @@ const routes:Routes = [
         path: 'my-courses',
         component: CoursesManagementComponent,
         canActivate: [TeacherGuard]
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
       }
     ]
   }];
@@ -54,6 +59,7 @@ const routes:Routes = [
     CoursesManagementComponent,
     EditCourseComponent,
     AddCourseComponent,
+    OrdersComponent,
   ],
   imports: [
     CommonModule,

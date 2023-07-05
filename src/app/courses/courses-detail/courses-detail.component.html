@@ -79,6 +79,11 @@
   <div>
     <mat-divider style="margin-top: 20px"></mat-divider>
     <h1>Reviews</h1>
+    <div>
+      <ng-container *ngFor="let i of [].constructor(20)">
+        <app-review></app-review>
+      </ng-container>
+    </div>
   </div>
 </ng-container>
 

@@ -22,6 +22,7 @@ export class LoginDialogComponent {
       if (res.success){
         console.log(res);
         this.auth.user = value;
+
         localStorage.setItem('token', res.token);
         this.auth.roles = res.roles.map(res=> res.substring(5));
         this.dialogRef.close();

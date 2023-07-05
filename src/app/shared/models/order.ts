@@ -9,6 +9,7 @@ export interface Order {
   cardNum: string,
   expiryDate: string,
   cvc: number,
+  totalPrice:number,
   purchaseDate: Date,
   products: Product[]
 }

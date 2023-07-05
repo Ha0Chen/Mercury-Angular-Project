@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {OrderService} from "../../shared/services/order.service";
 
 @Component({
@@ -6,10 +6,16 @@ import {OrderService} from "../../shared/services/order.service";
   templateUrl: './payment-success.component.html',
   styleUrls: ['./payment-success.component.scss']
 })
-export class PaymentSuccessComponent {
-
+export class PaymentSuccessComponent implements OnInit{
+  showSpinner = true;
   constructor(
     private os: OrderService
   ) {
+  }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.showSpinner = false;
+    }, 2000);
   }
 }

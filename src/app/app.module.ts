@@ -31,6 +31,7 @@ import { PaymentComponent } from './payment/payment.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import { PaymentSuccessComponent } from './payment/payment-success/payment-success.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import { ReviewComponent } from './review/review.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     PriceRangePipe,
     ShoppingCartComponent,
     PaymentComponent,
-    PaymentSuccessComponent
+    PaymentSuccessComponent,
+    ReviewComponent
   ],
   imports: [
     BrowserModule,

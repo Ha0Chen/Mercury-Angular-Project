@@ -83,6 +83,7 @@ export class ProductsService {
   clearCart(){
     localStorage.removeItem('cart-items');
     this.loadCart();
+    this.totalPriceInCart = 0;
   }
 
 
