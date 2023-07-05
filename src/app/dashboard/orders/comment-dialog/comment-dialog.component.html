@@ -1,0 +1,32 @@
+<h1 mat-dialog-title>Comment</h1>
+<div mat-dialog-content>
+  <form fxLayout="column" [formGroup]="commentFormGroup">
+    <div style="margin-bottom: 10px; display: flex; justify-content: space-around; flex-direction: column">
+      <h2>Course Name:  {{product?.name}}</h2>
+      <h3>Teacher Name:  {{product?.teacherName}}</h3>
+      <h3>Price: {{product?.price}}</h3>
+    </div>
+    Rating (0-5):
+    <mat-slider
+      class="example-margin"
+      [disabled]="false"
+      [max]="5"
+      [min]="0"
+      [step]="1"
+      [discrete]="true"
+      [showTickMarks]="true">
+      <input matSliderThumb formControlName="rating">
+    </mat-slider>
+
+    <mat-form-field>
+      <mat-label>Content</mat-label>
+      <textarea rows="5" type="text" matInput formControlName="content"></textarea>
+      <mat-error *ngIf="commentFormGroup.get('content')?.getError('required')">Content is required</mat-error>
+    </mat-form-field>
+
+    <div style="display: flex; justify-content: space-around; margin-top: 20px">
+      <button type="submit" mat-raised-button color="primary" (click)="save()">Save</button>
+      <button mat-button mat-dialog-close>Cancel</button>
+    </div>
+  </form>
+</div>

@@ -44,46 +44,31 @@ export class PaymentComponent {
   }
 
   completeCheckout(){
-    // const combineFormGroup = this._formBuilder.group({
-    //   formGroup1: this.firstFormGroup,
-    //   formGroup2: this.secondFormGroup
-    // })
-    // console.log(combineFormGroup.value.formGroup1);
-    // console.log(combineFormGroup.value.formGroup2);
     if (this.as.user !== null){
+      const userId:number= this.as.user.id || 0;
+      const country= this.firstFormGroup.get("countryCtrl")?.value;
+      const zipcode= this.firstFormGroup.get("zipcodeCtrl")?.value;
+      const paymentMethod = this.secondFormGroup.get("paymentMethodCtrl")?.value;
+      const name= this.secondFormGroup.get("nameCtrl")?.value;
+      const cardNum= this.secondFormGroup.get("cardNumCtrl")?.value;
+      const expiryDate= this.secondFormGroup.get("expiryDateCtrl")?.value;
+      const cvc:string | number= this.secondFormGroup.get("cvcCtrl")?.value || 0;
+      const pruchase_date = new Date();
+      const products = this.ps.cart;
 
+      // @ts-ignore
+      let order:Order = {userId: userId, country:country, zipcode:zipcode, paymentMethod: paymentMethod, nameOnCard:name, cardNum:cardNum, expiryDate:expiryDate, cvc:cvc, totalPrice: this.ps.totalPriceInCart, products:products, purchaseDate: pruchase_date}
+      console.log(order);
+      this.os.save(order).subscribe(res => {
+        if (res !== null){
+          this.ps.clearCart();
+          this.router.navigate(['/payment-success']).catch();
+        }
+
+      });
     }else{
-
+      console.log("No user");
     }
-    const userId:number= this.as.user?.id || 0;
-    const country= this.firstFormGroup.get("countryCtrl")?.value;
-    const zipcode= this.firstFormGroup.get("zipcodeCtrl")?.value;
-    const paymentMethod = this.secondFormGroup.get("paymentMethodCtrl")?.value;
-    const name= this.secondFormGroup.get("nameCtrl")?.value;
-    const cardNum= this.secondFormGroup.get("cardNumCtrl")?.value;
-    const expiryDate= this.secondFormGroup.get("expiryDateCtrl")?.value;
-    const cvc:string | number= this.secondFormGroup.get("cvcCtrl")?.value || 0;
-    const pruchase_date = new Date();
-    const products = this.ps.cart;
-
-    // @ts-ignore
-    let order:Order = {userId: userId, country:country, zipcode:zipcode, paymentMethod: paymentMethod, nameOnCard:name, cardNum:cardNum, expiryDate:expiryDate, cvc:cvc, totalPrice: this.ps.totalPriceInCart, products:products, purchaseDate: pruchase_date}
-    console.log(order);
-    this.os.save(order).subscribe(res => {
-      if (res !== null){
-        this.ps.clearCart();
-        this.router.navigate(['/payment-success']).catch();
-      }
-
-    });
-
-
 
   }
-
-  // navigateToNextStep(stepper: MatStepper) {
-  //   console.log(this.secondFormGroup);
-  //   // console.log("clicked");
-  //   stepper.next();
-  // }
 }

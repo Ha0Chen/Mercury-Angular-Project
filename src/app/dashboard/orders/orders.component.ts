@@ -11,6 +11,8 @@ import {Order} from "../../shared/models/order";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ActivatedRoute} from "@angular/router";
 import {switchMap} from "rxjs";
+import {AddCourseComponent} from "../courses-management/add-course/add-course.component";
+import {CommentDialogComponent} from "./comment-dialog/comment-dialog.component";
 
 @Component({
   selector: 'app-orders',
@@ -30,12 +32,14 @@ export class OrdersComponent{
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Order | null | undefined;
   orders: Order[] = [];
+
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('myTable') table!: MatTable<any>;
 
   constructor(
     private os: OrderService,
-    private as: AuthService
+    private as: AuthService,
+    private dialog: MatDialog
   ) {
     if (localStorage.getItem("token") && this.as.user === null){
       this.as.checkLogin().pipe(switchMap(res => {
@@ -44,10 +48,22 @@ export class OrdersComponent{
         return this.os.getOrdersByUserId(this.as.user!.id);
       })).subscribe(res =>{
         this.dataSource = new MatTableDataSource<Order>(res);
+        this.orders = res
+        console.log(res);
+        this.dataSource.sort = this.sort;
+      })
+    }else{
+      this.getOrdersData();
+    }
+  }
+
+  getOrdersData(){
+    this.os.getOrdersByUserId(this.as.user!.id).subscribe(
+      res => {
+        this.dataSource = new MatTableDataSource<Order>(res);
         this.orders = res;
         this.dataSource.sort = this.sort;
       })
-    }
   }
 
   applyFilter(event: Event) {
@@ -55,4 +71,17 @@ export class OrdersComponent{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  openCommentDialog(item: Product, id:number) {
+    // console.log(item, id);
+    const dialogRef = this.dialog.open(CommentDialogComponent, {
+      width: '600px',
+      data: {item, id}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      // Perform any necessary actions after the dialog is closed
+      this.getOrdersData();
+      this.table.renderRows();
+    });
+  }
 }

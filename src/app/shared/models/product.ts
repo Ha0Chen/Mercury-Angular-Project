@@ -6,7 +6,8 @@ export interface Product{
   description:string;
   price:number;
   sales:number;
-  image:string | File; // send a File to the backend
+  image:string;
   teacherName:string;
   content:{id: number; data: string}[];
+  commented:boolean;
 }

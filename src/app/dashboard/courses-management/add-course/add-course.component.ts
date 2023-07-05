@@ -15,7 +15,6 @@ import {AuthService} from "../../../shared/services/auth.service";
   styleUrls: ['./add-course.component.scss']
 })
 export class AddCourseComponent implements OnInit{
-  selectedFile?: File;
   addCourseFormGroup!:FormGroup;
   treeControl = new NestedTreeControl<Chapter>(node => node.sections);
   dataSource = new MatTreeNestedDataSource<Chapter>();
@@ -115,7 +114,7 @@ export class AddCourseComponent implements OnInit{
     const price = this.addCourseFormGroup.get("price")?.value;
     const image = this.addCourseFormGroup.get('image')?.value;
     let product:Product = {id: 0, name: name, description: description, content:content, sales:0,
-      price: price, image: image, teacherName: this.teacherName};
+      price: price, image: image, teacherName: this.teacherName, commented:false};
 
     this.ps.addProduct(product).subscribe(res =>{
       console.log(res);

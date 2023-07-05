@@ -9,18 +9,21 @@
 
   <mat-divider></mat-divider>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="./dashboard">
-    <mat-icon>dashboard</mat-icon>Dashboard</a>
+  <ng-container *ngIf="auth.isAdmin()">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./dashboard">
+      <mat-icon>dashboard</mat-icon>Dashboard
+    </a>
+  </ng-container>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="./cart">
     <mat-icon>shopping_cart</mat-icon>Shopping Cart</a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="./orders">
-    <mat-icon>assignment</mat-icon>Orders
+    <mat-icon>assignment</mat-icon>Orders History
   </a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-reviews">
-    <mat-icon>reviews</mat-icon>Reviews
+    <mat-icon>reviews</mat-icon>My Reviews
   </a>
   <ng-container *ngIf="auth.isTeacher()">
     <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-courses">

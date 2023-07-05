@@ -1,1 +1,21 @@
-<p>review works!</p>
+<ng-container *ngFor="let review of reviews">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{review.userName}}</mat-card-title>
+      <mat-card-subtitle>
+<!--        <div style="display: flex"></div>-->
+        <ng-container *ngFor="let i of [].constructor(review.rating)">
+          <mat-icon style="color: rgb(255, 210, 48);">star</mat-icon>
+        </ng-container>
+        <ng-container *ngFor="let i of [].constructor(5 - review.rating)">
+          <mat-icon>star_outline</mat-icon>
+        </ng-container>
+      </mat-card-subtitle>
+      <mat-card-subtitle>{{review.date.toString().substring(0,10)}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      {{review.content}}
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+

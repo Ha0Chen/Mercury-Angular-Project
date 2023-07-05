@@ -10,8 +10,27 @@
        #myTable
 >
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column.toUpperCase()}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column].toString().substring(0,10)}} </td>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+    <ng-container *ngIf="column === 'date';else normal">
+      <td mat-cell *matCellDef="let element"> {{element[column].toString().substring(0,10)}} </td>
+    </ng-container>
+    <ng-template #normal>
+      <ng-container *ngIf="column === 'rating';else secondNormal">
+        <td mat-cell *matCellDef="let element">
+          <ng-container *ngFor="let i of [].constructor(element[column])">
+            <mat-icon style="color: rgb(255, 210, 48);">star</mat-icon>
+          </ng-container>
+          <ng-container *ngFor="let i of [].constructor(5 - element[column])">
+            <mat-icon>star_outline</mat-icon>
+          </ng-container>
+        </td>
+      </ng-container>
+      <ng-template #secondNormal>
+        <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+      </ng-template>
+
+    </ng-template>
+
   </ng-container>
   <ng-container matColumnDef="expand">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -26,20 +45,14 @@
       <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
         <div class="example-element-detail"
              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-          <mat-list role="list">
-            <ng-container *ngFor="let item of element.products">
-              <mat-list-item role="listitem">{{item.name}}
-                <u style="font-weight: bold; margin-left: 40px">{{item.price | currency:'USD'}}</u>
-                <ng-container *ngIf="!item.commented;else isCommented">
-                  <u style="margin-left: 60px"> <button mat-stroked-button color="primary" (click)="openCommentDialog(item, element.id)">Comment</button></u>
-                </ng-container>
-                <ng-template #isCommented>
-                  <u style="margin-left: 60px"> <button mat-stroked-button color="primary" disabled>You have made comments</button></u>
-                </ng-template>
+          <div class="example-element-description">
+            {{element.content}}
+            <!--          <span class="example-element-description-attribution"> &#45;&#45; Wikipedia </span>-->
+            <div style="margin-top: 20px; display: flex; justify-content: flex-end">
+              <button mat-raised-button color="accent" style="margin-right: 20px" (click)="jumpToPage(element)">Go to Page</button>
+            </div>
 
-              </mat-list-item>
-            </ng-container>
-          </mat-list>
+          </div>
         </div>
       </td>
     </ng-container>
@@ -58,3 +71,4 @@
     <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
   </tr>
 </table>
+

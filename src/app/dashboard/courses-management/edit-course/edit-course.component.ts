@@ -125,7 +125,7 @@ export class EditCourseComponent {
     const price = this.editCourseFormGroup.get("price")?.value;
     const image = this.editCourseFormGroup.get("image")?.value;
     let product:Product = {id: this.data.id, name: name, description: description, content:content, sales:this.data.sales,
-      price: price, image: image, teacherName:this.data.teacherName };
+      price: price, image: image, teacherName:this.data.teacherName, commented:false };
 
     this.ps.updateProduct(product).subscribe(res =>{
       console.log(res);

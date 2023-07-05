@@ -20,6 +20,10 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import { AddCourseComponent } from './courses-management/add-course/add-course.component';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { OrdersComponent } from './orders/orders.component';
+import { MyReviewsComponent } from './my-reviews/my-reviews.component';
+import { CommentDialogComponent } from './orders/comment-dialog/comment-dialog.component';
+import {AdminGuard} from "../shared/guards/admin.guard";
+import { UserListComponent } from './user-list/user-list.component';
 
 const routes:Routes = [
   {
@@ -28,7 +32,8 @@ const routes:Routes = [
     children: [
       {
         path: 'dashboard',
-        component: VisualsComponent
+        component: VisualsComponent,
+        canActivate:[AdminGuard]
       },
       {
         path: 'cart',
@@ -42,6 +47,10 @@ const routes:Routes = [
       {
         path: 'orders',
         component: OrdersComponent,
+      },
+      {
+        path: 'my-reviews',
+        component: MyReviewsComponent
       }
     ]
   }];
@@ -60,6 +69,9 @@ const routes:Routes = [
     EditCourseComponent,
     AddCourseComponent,
     OrdersComponent,
+    MyReviewsComponent,
+    CommentDialogComponent,
+    UserListComponent,
   ],
   imports: [
     CommonModule,
