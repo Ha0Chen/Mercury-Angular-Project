@@ -11,4 +11,5 @@ export class CoursesOverviewComponent {
   @Input()
   product:Product | undefined;
 
+  protected readonly Math = Math;
 }

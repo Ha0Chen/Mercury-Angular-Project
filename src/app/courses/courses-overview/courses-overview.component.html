@@ -13,6 +13,14 @@
         {{product.description}}
       </p>
       <div>
+        <ng-container *ngFor="let i of [].constructor(Math.floor(product.ratings / product.sales))">
+          <mat-icon style="color: rgb(255, 210, 48);">star</mat-icon>
+        </ng-container>
+        <ng-container *ngFor="let i of [].constructor((5 - Math.floor(product.ratings / product.sales)))">
+          <mat-icon>star_outline</mat-icon>
+        </ng-container>
+      </div>
+      <div>
         <span class="products-list-item-price">{{product.price | currency:'USD'}}</span>
         <span class="products-list-item-sales">{{product.sales}} sold</span>
       </div>

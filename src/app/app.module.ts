@@ -16,7 +16,6 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { RegisterDialogComponent } from './register-dialog/register-dialog.component';
-import { HomeComponent } from './home/home.component';
 import { CoursesComponent } from './courses/courses.component';
 import { CoursesOverviewComponent } from './courses/courses-overview/courses-overview.component';
 import { CoursesDetailComponent } from './courses/courses-detail/courses-detail.component';
@@ -32,6 +31,7 @@ import {MatStepperModule} from "@angular/material/stepper";
 import { PaymentSuccessComponent } from './payment/payment-success/payment-success.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ReviewComponent } from './review/review.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { ReviewComponent } from './review/review.component';
     HeaderComponent,
     LoginDialogComponent,
     RegisterDialogComponent,
-    HomeComponent,
     CoursesComponent,
     CoursesOverviewComponent,
     CoursesDetailComponent,
@@ -69,7 +68,8 @@ import { ReviewComponent } from './review/review.component';
     HighchartsChartModule,
     MatCheckboxModule,
     MatStepperModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   providers: [
     {

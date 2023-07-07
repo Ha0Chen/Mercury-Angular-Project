@@ -43,8 +43,8 @@ export class RegisterDialogComponent implements OnInit{
     this.as.register({username, password, teacher}).subscribe(res =>{
       if (res.success){
         this.as.user = JSON.parse(res.user);
+        this.as.roles = res.roles.map(item => item.substring(5));
         localStorage.setItem('token', res.token);
-        this.as.roles = res.roles.map(res=> res.substring(5));
         this.dialogRef.close();
       }else{
         this.errorMessage = res.message;

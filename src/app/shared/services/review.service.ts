@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Review} from "../models/review";
 import {environment} from "../../../environments/environment.development";
+import {Response} from "../models/response";
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +23,13 @@ export class ReviewService {
   save(review:Review):Observable<Review>{
     return this.httpClient.post<Review>(`${environment.api}/reviews`, review);
   }
-  // deleteByProductId(id:number):Observable<Response>
+
+  findAll():Observable<Review[]>{
+    return this.httpClient.get<Review[]>(`${environment.api}/reviews`);
+  }
+
+  deleteById(id:number):Observable<Response>{
+    return this.httpClient.delete<Response>(`${environment.api}/reviews/${id}`);
+  }
 
 }

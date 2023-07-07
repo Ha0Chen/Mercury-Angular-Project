@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
 import {CoursesComponent} from "./courses/courses.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {CoursesDetailComponent} from "./courses/courses-detail/courses-detail.component";
@@ -9,10 +8,6 @@ import {PaymentSuccessComponent} from "./payment/payment-success/payment-success
 import {AuthGuard} from "./shared/guards/auth.guard.guard";
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: HomeComponent
-  },
   {
     path: 'courses',
     component: CoursesComponent
@@ -44,7 +39,7 @@ const routes: Routes = [
   // needs to put it in the end of array
   {
     path: '**',
-    redirectTo: 'home'
+    redirectTo: 'courses'
   }
 ];
 

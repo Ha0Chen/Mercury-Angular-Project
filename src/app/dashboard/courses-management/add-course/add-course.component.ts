@@ -113,8 +113,8 @@ export class AddCourseComponent implements OnInit{
     const content = temp;
     const price = this.addCourseFormGroup.get("price")?.value;
     const image = this.addCourseFormGroup.get('image')?.value;
-    let product:Product = {id: 0, name: name, description: description, content:content, sales:0,
-      price: price, image: image, teacherName: this.teacherName, commented:false};
+    let product:Product = {id: 0, name: name, description: description, content:content, sales:1,
+      price: price, image: image, teacherName: this.teacherName, commented:false, ratings: 5};
 
     this.ps.addProduct(product).subscribe(res =>{
       console.log(res);

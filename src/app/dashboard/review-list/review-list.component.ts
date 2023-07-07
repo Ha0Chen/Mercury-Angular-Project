@@ -1,4 +1,5 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {Product} from "../../shared/models/product";
 import {MatSort} from "@angular/material/sort";
@@ -6,18 +7,17 @@ import {AuthService} from "../../shared/services/auth.service";
 import {ProductsService} from "../../shared/services/products.service";
 import {UserService} from "../../shared/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
-import {OrderService} from "../../shared/services/order.service";
-import {Order} from "../../shared/models/order";
-import {animate, state, style, transition, trigger} from "@angular/animations";
-import {ActivatedRoute, Route, Router} from "@angular/router";
-import {switchMap} from "rxjs";
+import {EditCourseComponent} from "../courses-management/edit-course/edit-course.component";
 import {AddCourseComponent} from "../courses-management/add-course/add-course.component";
-import {CommentDialogComponent} from "./comment-dialog/comment-dialog.component";
+import {switchMap} from "rxjs";
+import {Order} from "../../shared/models/order";
+import {ReviewService} from "../../shared/services/review.service";
+import {Review} from "../../shared/models/review";
 
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss'],
+  selector: 'app-review-list',
+  templateUrl: './review-list.component.html',
+  styleUrls: ['./review-list.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0'})),
@@ -26,67 +26,59 @@ import {CommentDialogComponent} from "./comment-dialog/comment-dialog.component"
     ]),
   ],
 })
-export class OrdersComponent{
-  columnsToDisplay: string[] = ['id','purchaseDate', 'totalPrice'];
-  dataSource!: MatTableDataSource<Order>;
+export class ReviewListComponent{
+  columnsToDisplay: string[] = ['id', 'orderId', 'date', 'userId', 'userName', 'productId','productName'];
+  dataSource!: MatTableDataSource<Review>;
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
-  expandedElement: Order | null | undefined;
-  orders: Order[] = [];
-
+  expandedElement: Review | null | undefined;
+  reviews: Review[] = [];
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild('myTable') table!: MatTable<any>;
-
   constructor(
-    private os: OrderService,
     private as: AuthService,
+    private ps: ProductsService,
+    private us: UserService,
     private dialog: MatDialog,
-    private router: Router
+    private rs: ReviewService
   ) {
     if (localStorage.getItem("token") && (this.as.user === null || this.as.user == null)){
       this.as.checkLogin().pipe(switchMap(res => {
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));
-        return this.os.getOrdersByUserId(this.as.user!.id);
+        return this.rs.findAll();
       })).subscribe(res =>{
-        this.dataSource = new MatTableDataSource<Order>(res);
-        this.orders = res
+        this.dataSource = new MatTableDataSource<Review>(res);
+        this.reviews = res;
         console.log(res);
         this.dataSource.sort = this.sort;
       })
     }else{
-      this.getOrdersData();
+      this.getReviewsData();
     }
   }
 
-  getOrdersData(){
-    this.os.getOrdersByUserId(this.as.user!.id).subscribe(
-      res => {
-        this.dataSource = new MatTableDataSource<Order>(res);
-        this.orders = res;
+  getReviewsData(){
+    if (this.as.user !== null){
+      this.rs.findAll().subscribe(res =>{
+        this.dataSource = new MatTableDataSource<Review>(res);
         this.dataSource.sort = this.sort;
-      })
+      });
+    }
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
   }
 
-  openCommentDialog(item: Product, id:number) {
-    // console.log(item, id);
-    const dialogRef = this.dialog.open(CommentDialogComponent, {
-      width: '600px',
-      data: {item, id}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // Perform any necessary actions after the dialog is closed
-      this.getOrdersData();
+  delete(id:number) {
+    console.log(id);
+    this.rs.deleteById(id).subscribe(res =>{
+      console.log(res);
+      this.getReviewsData();
       this.table.renderRows();
-    });
+    })
   }
 
-  jumpToPage(id:number) {
-    this.router.navigate([`courses`, `/${id}`]).catch();
-  }
 }

@@ -13,18 +13,28 @@
     <a mat-list-item routerLinkActive="list-item-active" routerLink="./dashboard">
       <mat-icon>dashboard</mat-icon>Dashboard
     </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./user-list">
+      <mat-icon>accessibility</mat-icon>User List
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./review-list">
+      <mat-icon>class</mat-icon>Review List
+    </a>
   </ng-container>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="./cart">
-    <mat-icon>shopping_cart</mat-icon>Shopping Cart</a>
+  <ng-container *ngIf="auth.isUser()">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./cart">
+      <mat-icon>shopping_cart</mat-icon>Shopping Cart</a>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="./orders">
-    <mat-icon>assignment</mat-icon>Orders History
-  </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./orders">
+      <mat-icon>assignment</mat-icon>Orders History
+    </a>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-reviews">
-    <mat-icon>reviews</mat-icon>My Reviews
-  </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-reviews">
+      <mat-icon>reviews</mat-icon>My Reviews
+    </a>
+  </ng-container>
+
+
   <ng-container *ngIf="auth.isTeacher()">
     <a mat-list-item routerLinkActive="list-item-active" routerLink="./my-courses">
       <mat-icon>folder_special</mat-icon>Published Courses

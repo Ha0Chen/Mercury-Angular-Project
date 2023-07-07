@@ -11,7 +11,13 @@
 >
   <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
-    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    <ng-container *ngIf="column === 'ratings';else normal">
+      <td mat-cell *matCellDef="let element"> {{Math.floor(element[column] / element['sales']) }}/ 5 </td>
+    </ng-container>
+    <ng-template #normal>
+      <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+    </ng-template>
+
   </ng-container>
   <ng-container matColumnDef="expand">
     <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
@@ -36,7 +42,6 @@
             <button mat-raised-button color="primary" style="margin-right: 20px" (click)="openEditDialog(element)">Edit</button>
             <button mat-raised-button color="warn" (click)="delete(element.id)">Delete</button>
           </div>
-
         </div>
       </div>
     </td>

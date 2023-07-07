@@ -26,11 +26,10 @@ export class AuthService {
   }
   //helper function for guard to initial user and roles
   public initialize(){
-    if (localStorage.getItem("token") && this.user === null){
+    if (localStorage.getItem("token") && this.user == null){
       this.checkLogin().subscribe(res =>{
-        console.log(res);
         this.user = JSON.parse(res.user);
-        this.roles = res.roles.map(res=> res.substring(5));
+        this.roles = res.roles.map(res => res.substring(5));
       });
     }
   }
@@ -81,6 +80,17 @@ export class AuthService {
     return this.roles.findIndex(res => {
       return res.includes("ADMIN");
     }) > -1;
+  }
+
+  isUser(){
+    return this.roles.findIndex(res => {
+      return res.includes("USER");
+    }) > -1;
+  }
+
+
+  findAll():Observable<User[]>{
+    return this.httpClient.get<User[]>(`${environment.api}/auth`);
   }
 }
 

@@ -1,4 +1,4 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {Product} from "../../shared/models/product";
@@ -24,7 +24,7 @@ import {Router} from "@angular/router";
     ]),
   ]
 })
-export class MyReviewsComponent {
+export class MyReviewsComponent implements OnInit{
   columnsToDisplay: string[] = ['id','date', 'productName', 'rating'];
   dataSource!: MatTableDataSource<Review>;
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
@@ -38,24 +38,10 @@ export class MyReviewsComponent {
     private as:AuthService,
     private dialog: MatDialog,
     private router:Router
-  ) {
-    if (localStorage.getItem("token") && this.as.user === null){
-      this.as.checkLogin().pipe(switchMap(res => {
-        this.as.user = JSON.parse(res.user);
-        this.as.roles = res.roles.map(res=> res.substring(5));
-        return this.rs.findReviewsByUserId(this.as.user?.id as unknown as string);
-      })).subscribe(res =>{
-        this.dataSource = new MatTableDataSource<Review>(res);
-        this.reviews = res;
-        this.dataSource.sort = this.sort;
-      })
-    }else{
-      this.getReviewsData();
-    }
-  }
+  ) {}
 
   getReviewsData(){
-    this.rs.findReviewsByUserId(this.as.user?.id as unknown as string).subscribe(
+    this.rs.findReviewsByUserId(this.as.user?.id.toString()!).subscribe(
       res => {
         this.dataSource = new MatTableDataSource<Review>(res);
         this.reviews = res;
@@ -70,7 +56,22 @@ export class MyReviewsComponent {
 
 
   jumpToPage(element:Review) {
-    console.log(`localhost:4200/courses/${element.productId}`);
     this.router.navigate([`courses`, `/${element.productId}`]).catch();
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem("token") && (this.as.user == null)){
+      this.as.checkLogin().pipe(switchMap(res => {
+        this.as.user = JSON.parse(res.user);
+        this.as.roles = res.roles.map(res=> res.substring(5));
+        return this.rs.findReviewsByUserId(this.as.user?.id.toString()!);
+      })).subscribe(res =>{
+        this.dataSource = new MatTableDataSource<Review>(res);
+        this.reviews = res;
+        this.dataSource.sort = this.sort;
+      })
+    }else{
+      this.getReviewsData();
+    }
   }
 }

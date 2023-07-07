@@ -20,11 +20,9 @@ export class LoginDialogComponent {
   login({value}: NgForm):void{
     this.auth.login(value).subscribe(res =>{
       if (res.success){
-        console.log(res);
-        this.auth.user = value;
-
+        this.auth.user = JSON.parse(res.user);
+        this.auth.roles = res.roles.map(item => item.substring(5));
         localStorage.setItem('token', res.token);
-        this.auth.roles = res.roles.map(res=> res.substring(5));
         this.dialogRef.close();
       }else{
         this.errorMessage = "username or password is wrong";

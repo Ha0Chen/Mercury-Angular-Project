@@ -7,6 +7,7 @@ export interface Product{
   price:number;
   sales:number;
   image:string;
+  ratings:number;
   teacherName:string;
   content:{id: number; data: string}[];
   commented:boolean;

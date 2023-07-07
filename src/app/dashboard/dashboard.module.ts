@@ -24,6 +24,7 @@ import { MyReviewsComponent } from './my-reviews/my-reviews.component';
 import { CommentDialogComponent } from './orders/comment-dialog/comment-dialog.component';
 import {AdminGuard} from "../shared/guards/admin.guard";
 import { UserListComponent } from './user-list/user-list.component';
+import { ReviewListComponent } from './review-list/review-list.component';
 
 const routes:Routes = [
   {
@@ -51,6 +52,16 @@ const routes:Routes = [
       {
         path: 'my-reviews',
         component: MyReviewsComponent
+      },
+      {
+        path: 'user-list',
+        component: UserListComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: 'review-list',
+        component: ReviewListComponent,
+        canActivate: [AdminGuard]
       }
     ]
   }];
@@ -72,6 +83,7 @@ const routes:Routes = [
     MyReviewsComponent,
     CommentDialogComponent,
     UserListComponent,
+    ReviewListComponent,
   ],
   imports: [
     CommonModule,

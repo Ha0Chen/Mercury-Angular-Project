@@ -11,6 +11,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {EditCourseComponent} from "./edit-course/edit-course.component";
 import {switchMap} from "rxjs";
 import {AddCourseComponent} from "./add-course/add-course.component";
+import {Review} from "../../shared/models/review";
 @Component({
   selector: 'app-courses-management',
   templateUrl: './courses-management.component.html',
@@ -23,8 +24,8 @@ import {AddCourseComponent} from "./add-course/add-course.component";
     ]),
   ],
 })
-export class CoursesManagementComponent implements OnInit{
-  columnsToDisplay: string[] = ['id','name', 'price', 'sales'];
+export class CoursesManagementComponent{
+  columnsToDisplay: string[] = ['id','name', 'price', 'sales', 'ratings'];
   dataSource!: MatTableDataSource<Product>;
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: Product | null | undefined;
@@ -36,11 +37,20 @@ export class CoursesManagementComponent implements OnInit{
     private us: UserService,
     private dialog: MatDialog
   ) {
+    if (localStorage.getItem("token") && (this.as.user == null)){
+      this.as.checkLogin().pipe(switchMap(res => {
+        this.as.user = JSON.parse(res.user);
+        this.as.roles = res.roles.map(res=> res.substring(5));
+        return this.us.getCoursesByTeacherName(this.as.user!.username);
+      })).subscribe(res =>{
+        this.dataSource = new MatTableDataSource<Product>(res);
+        this.dataSource.sort = this.sort;
+      })
+    }else{
+      this.getCoursesData();
+    }
   }
 
-  ngOnInit(): void {
-    this.getCoursesData();
-  }
 
   getCoursesData(){
     if (this.as.user !== null){
@@ -90,4 +100,7 @@ export class CoursesManagementComponent implements OnInit{
       this.table.renderRows();
     });
   }
+
+  protected readonly Math = Math;
+  protected readonly Number = Number;
 }
