@@ -6,6 +6,7 @@ import {CoursesDetailComponent} from "./courses/courses-detail/courses-detail.co
 import {PaymentComponent} from "./payment/payment.component";
 import {PaymentSuccessComponent} from "./payment/payment-success/payment-success.component";
 import {AuthGuard} from "./shared/guards/auth.guard.guard";
+import {VideoComponent} from "./video/video.component";
 
 const routes: Routes = [
   {
@@ -34,6 +35,11 @@ const routes: Routes = [
   {
     path: 'payment-success',
     component: PaymentSuccessComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path: 'video',
+    component: VideoComponent,
     canActivate:[AuthGuard]
   },
   // needs to put it in the end of array

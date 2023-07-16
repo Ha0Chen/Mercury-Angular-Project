@@ -11,17 +11,17 @@
 
   <ng-container *ngIf="auth.isAdmin()">
     <a mat-list-item routerLinkActive="list-item-active" routerLink="./dashboard">
-      <mat-icon>dashboard</mat-icon>Dashboard
+      <mat-icon>dashboard</mat-icon> <a style="color: red">Dashboard</a>
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="./user-list">
-      <mat-icon>accessibility</mat-icon>User List
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./user-list" style="color: red">
+      <mat-icon>accessibility</mat-icon><a style="color: red">User List</a>
     </a>
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="./review-list">
-      <mat-icon>class</mat-icon>Review List
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="./review-list" style="color: red">
+      <mat-icon>class</mat-icon><a style="color: red">Review List</a>
     </a>
   </ng-container>
 
-  <ng-container *ngIf="auth.isUser()">
+  <ng-container *ngIf="auth.isUser() || auth.isAdmin()">
     <a mat-list-item routerLinkActive="list-item-active" routerLink="./cart">
       <mat-icon>shopping_cart</mat-icon>Shopping Cart</a>
 

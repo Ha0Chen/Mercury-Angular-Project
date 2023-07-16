@@ -11,7 +11,9 @@
     </div>
     <div>
       <span class="example-spacer"></span>
+
       <app-shopping-cart style="margin-right: 10px"></app-shopping-cart>
+
       <ng-container *ngIf="!auth.user; else logoutTemplate">
         <button mat-raised-button (click)="openLoginDialog()">
           <span>Login</span>
@@ -34,7 +36,7 @@
     </div>
   </mat-toolbar-row>
   <mat-toolbar-row *ngIf="deviceXs" fxLayoutAlign="space-between end">
-    <button mat-button routerLink="/home" routerLinkActive="my-active">Home</button>
+    <button mat-button>Home</button>
     <button mat-button routerLink="/courses" routerLinkActive="my-active">Courses</button>
     <button mat-button>Contact us</button>
   </mat-toolbar-row>

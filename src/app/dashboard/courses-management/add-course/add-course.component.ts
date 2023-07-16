@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {NestedTreeControl} from "@angular/cdk/tree";
 import {Chapter} from "../../../shared/models/chapter";
@@ -6,9 +6,7 @@ import {MatTreeNestedDataSource} from "@angular/material/tree";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {Product} from "../../../shared/models/product";
 import {ProductsService} from "../../../shared/services/products.service";
-import {UserService} from "../../../shared/services/user.service";
 import {AuthService} from "../../../shared/services/auth.service";
-
 @Component({
   selector: 'app-add-course',
   templateUrl: './add-course.component.html',
@@ -19,16 +17,19 @@ export class AddCourseComponent implements OnInit{
   treeControl = new NestedTreeControl<Chapter>(node => node.sections);
   dataSource = new MatTreeNestedDataSource<Chapter>();
   teacherName:string = "";
+  selectedFiles: File | undefined;
+  private selectedFile: File | null | undefined;
   constructor(private fb: FormBuilder,
               private ps: ProductsService,
               public dialogRef: MatDialogRef<AddCourseComponent>,
               private auth: AuthService
   ) {
-
   }
   showPreview(){
     this.dataSource.data = this.parseFormattedString(this.addCourseFormGroup.get('content')?.value);
   }
+
+
 
   ngOnInit() {
     this.addCourseFormGroup = this.fb.group({
@@ -49,6 +50,10 @@ export class AddCourseComponent implements OnInit{
     if (this.auth.user !== null){
       this.teacherName = this.auth.user?.username;
     }
+    this.addCourseFormGroup.get("image")?.valueChanges.subscribe(
+      (files: any) => {
+        this.selectedFiles = files;
+    });
   }
 
   static contentValidator(fg:FormGroup):null | {[key:string]:string}{
@@ -112,11 +117,24 @@ export class AddCourseComponent implements OnInit{
     });
     const content = temp;
     const price = this.addCourseFormGroup.get("price")?.value;
-    const image = this.addCourseFormGroup.get('image')?.value;
+    // const image = this.addCourseFormGroup.get('image')?.value;
     let product:Product = {id: 0, name: name, description: description, content:content, sales:1,
-      price: price, image: image, teacherName: this.teacherName, commented:false, ratings: 5};
+      price: price, image: "", teacherName: this.teacherName, commented:false, ratings: 5};
 
-    this.ps.addProduct(product).subscribe(res =>{
+    const formData: FormData = new FormData();
+    formData.append('name', name);
+    formData.append('description', description);
+    for (let i = 0; i < content.length; i++) {
+      formData.append('content', content[i].data);
+    }
+    formData.append('price', price);
+    formData.append('image', this.selectedFiles!);
+    formData.append('teacherName', this.teacherName);
+    formData.append('ratings', '5');
+    formData.append('sales', '1');
+
+
+    this.ps.addProduct(formData).subscribe(res =>{
       console.log(res);
       this.dialogRef.close();
     });

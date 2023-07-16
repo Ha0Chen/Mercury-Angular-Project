@@ -24,7 +24,7 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   ],
 })
 export class UserListComponent{
-  columnsToDisplay: string[] = ['id','username', 'password'];
+  columnsToDisplay: string[] = ['id','username', 'password','authorities'];
   dataSource!: MatTableDataSource<User>;
   columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   expandedElement: User | null | undefined;
@@ -35,26 +35,25 @@ export class UserListComponent{
 
   constructor(
     private os: OrderService,
-    private as: AuthService,
-    private dialog: MatDialog
+    private as: AuthService
   ) {
-    if (localStorage.getItem("token") && (this.as.user === null || this.as.user == null)){
+    if (sessionStorage.getItem("token") && (this.as.user == null)){
       this.as.checkLogin().pipe(switchMap(res => {
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));
         return this.as.findAll();
       })).subscribe(res =>{
         this.dataSource = new MatTableDataSource<User>(res);
-        this.users = res
-        console.log(res);
+        this.users = res;
+        console.log(this.users);
         this.dataSource.sort = this.sort;
       })
     }else{
-      this.getOrdersData();
+      this.getUsersData();
     }
   }
 
-  getOrdersData(){
+  getUsersData(){
     this.as.findAll().subscribe(
       res => {
         this.dataSource = new MatTableDataSource<User>(res);
@@ -68,17 +67,11 @@ export class UserListComponent{
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  openCommentDialog(item: Product, id:number) {
-    // console.log(item, id);
-    const dialogRef = this.dialog.open(CommentDialogComponent, {
-      width: '600px',
-      data: {item, id}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      // Perform any necessary actions after the dialog is closed
-      this.getOrdersData();
+  delete(id:number) {
+    console.log(id);
+    this.as.deleteUser(id).subscribe(res =>{
+      this.getUsersData();
       this.table.renderRows();
-    });
+    })
   }
 }

@@ -1,16 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
-import {Product} from "../../shared/models/product";
 import {MatSort} from "@angular/material/sort";
 import {AuthService} from "../../shared/services/auth.service";
 import {ProductsService} from "../../shared/services/products.service";
-import {UserService} from "../../shared/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
-import {EditCourseComponent} from "../courses-management/edit-course/edit-course.component";
-import {AddCourseComponent} from "../courses-management/add-course/add-course.component";
 import {switchMap} from "rxjs";
-import {Order} from "../../shared/models/order";
 import {ReviewService} from "../../shared/services/review.service";
 import {Review} from "../../shared/models/review";
 
@@ -37,7 +32,6 @@ export class ReviewListComponent{
   constructor(
     private as: AuthService,
     private ps: ProductsService,
-    private us: UserService,
     private dialog: MatDialog,
     private rs: ReviewService
   ) {

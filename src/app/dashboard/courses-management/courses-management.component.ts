@@ -1,17 +1,14 @@
 import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {ProductsService} from "../../shared/services/products.service";
-import {UserService} from "../../shared/services/user.service";
 import {AuthService} from "../../shared/services/auth.service";
 import {Product} from "../../shared/models/product";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {MatSort, Sort} from "@angular/material/sort";
-import {LoginDialogComponent} from "../../login-dialog/login-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {EditCourseComponent} from "./edit-course/edit-course.component";
 import {switchMap} from "rxjs";
 import {AddCourseComponent} from "./add-course/add-course.component";
-import {Review} from "../../shared/models/review";
 @Component({
   selector: 'app-courses-management',
   templateUrl: './courses-management.component.html',
@@ -34,14 +31,13 @@ export class CoursesManagementComponent{
   constructor(
     private as: AuthService,
     private ps: ProductsService,
-    private us: UserService,
     private dialog: MatDialog
   ) {
-    if (localStorage.getItem("token") && (this.as.user == null)){
+    if (sessionStorage.getItem("token") && (this.as.user == null)){
       this.as.checkLogin().pipe(switchMap(res => {
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));
-        return this.us.getCoursesByTeacherName(this.as.user!.username);
+        return this.ps.getCoursesByTeacherName(this.as.user!.username);
       })).subscribe(res =>{
         this.dataSource = new MatTableDataSource<Product>(res);
         this.dataSource.sort = this.sort;
@@ -54,7 +50,7 @@ export class CoursesManagementComponent{
 
   getCoursesData(){
     if (this.as.user !== null){
-      this.us.getCoursesByTeacherName(this.as.user.username).subscribe(res =>{
+      this.ps.getCoursesByTeacherName(this.as.user.username).subscribe(res =>{
         this.dataSource = new MatTableDataSource<Product>(res);
         this.dataSource.sort = this.sort;
       });

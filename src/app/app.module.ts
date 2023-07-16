@@ -32,6 +32,7 @@ import { PaymentSuccessComponent } from './payment/payment-success/payment-succe
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import { ReviewComponent } from './review/review.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import { VideoComponent } from './video/video.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     ShoppingCartComponent,
     PaymentComponent,
     PaymentSuccessComponent,
-    ReviewComponent
+    ReviewComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +78,8 @@ import {MatTabsModule} from "@angular/material/tabs";
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,6 +6,7 @@
 
 .product-detail-image-container{
   order: 1;
+  flex-basis: 40%;
   .back-tag{
     color: darkgrey;
     margin-top: 5px;
@@ -26,6 +27,7 @@
   margin-top: 10px;
   margin-left: 10px;
   order: 2;
+  flex-basis: 40%;
   .product-detail-title {
     font-size: 3em;
     font-weight: 500;
@@ -47,6 +49,7 @@
   margin-right: 50px;
   order: 3;
   margin-top: 20px;
+  flex-basis: 20%;
   .product-detail-info-price {
     font-size: 2em;
     font-weight: 500;

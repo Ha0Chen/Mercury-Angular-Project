@@ -23,6 +23,7 @@ export class HeaderComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      // location.reload();
       // Perform any necessary actions after the dialog is closed
     });
   }

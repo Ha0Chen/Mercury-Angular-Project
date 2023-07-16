@@ -5,7 +5,6 @@ import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {FlatTreeControl, NestedTreeControl} from "@angular/cdk/tree";
 import {Chapter} from "../../../shared/models/chapter";
 import {MatTreeFlatDataSource, MatTreeFlattener, MatTreeNestedDataSource} from "@angular/material/tree";
-import {UserService} from "../../../shared/services/user.service";
 import {ProductsService} from "../../../shared/services/products.service";
 @Component({
   selector: 'app-edit-course',

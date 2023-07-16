@@ -28,17 +28,17 @@ export class AuthGuard implements CanActivate, CanLoad {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    !localStorage.getItem('token') && this.dialog.open(LoginDialogComponent, {
+    !sessionStorage.getItem('token') && this.dialog.open(LoginDialogComponent, {
       width: '300px'
     }).afterClosed().subscribe(result => {
       // Perform any necessary actions after the dialog is closed
       this.router.navigate(['/courses']).catch();
     });
-    return !!localStorage.getItem('token');
+    return !!sessionStorage.getItem('token');
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    !localStorage.getItem('token') && this.dialog.open(LoginDialogComponent, {
+    !sessionStorage.getItem('token') && this.dialog.open(LoginDialogComponent, {
       width: '300px'
     }).afterClosed().subscribe(result => {
       // Perform any necessary actions after the dialog is closed

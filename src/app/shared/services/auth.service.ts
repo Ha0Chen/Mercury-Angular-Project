@@ -6,10 +6,7 @@ import {User} from "../models/user";
 import {AuthResponse} from "../models/AuthResponse";
 import {ActivatedRouteSnapshot, provideRouter, ResolveFn, Router, RouterStateSnapshot} from "@angular/router";
 import {ProductsService} from "./products.service";
-import {bootstrapApplication} from "@angular/platform-browser";
-import {OrdersComponent} from "../../dashboard/orders/orders.component";
-import {AppModule} from "../../app.module";
-import {DashboardModule} from "../../dashboard/dashboard.module";
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +23,7 @@ export class AuthService {
   }
   //helper function for guard to initial user and roles
   public initialize(){
-    if (localStorage.getItem("token") && this.user == null){
+    if (sessionStorage.getItem("token") && this.user == null){
       this.checkLogin().subscribe(res =>{
         this.user = JSON.parse(res.user);
         this.roles = res.roles.map(res => res.substring(5));
@@ -59,9 +56,11 @@ export class AuthService {
 
 
   logout(){
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.user = null;
-    this.router.navigate(['/courses']).catch();
+    this.router.navigate(['/courses']).then(() => {
+      window.location.reload();
+    });
     this.ps.clearCart();
   }
 
@@ -91,6 +90,10 @@ export class AuthService {
 
   findAll():Observable<User[]>{
     return this.httpClient.get<User[]>(`${environment.api}/auth`);
+  }
+
+  deleteUser(id:number):Observable<User>{
+    return this.httpClient.delete<User>(`${environment.api}/auth/user/${id}`);
   }
 }
 

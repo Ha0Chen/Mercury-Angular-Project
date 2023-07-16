@@ -31,7 +31,13 @@
               This padding value depends on the mat-icon-button width. -->
             <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
               <ng-container *ngIf="node.url;else noUrl">
-                <a [href]="node.url" target="_blank"> <u>{{node.name}}</u> </a>
+                <ng-container *ngIf="!ifPurchased(product.id); else unlock">
+                  {{node.name}} <mat-icon>lock</mat-icon>
+                </ng-container>
+                <ng-template #unlock>
+                  <a [href]="node.url" target="_blank"> <u>{{node.name}}</u>  <mat-icon>lock_open</mat-icon></a>
+                </ng-template>
+
               </ng-container>
               <ng-template #noUrl>
                 {{node.name}}
@@ -58,6 +64,9 @@
               </div>
             </mat-nested-tree-node>
           </mat-tree>
+          <div>
+            <button mat-stroked-button color="accent" (click)="jump()">Video Demo</button>
+          </div>
         </mat-card-content>
       </mat-card>
     </div>
@@ -65,14 +74,21 @@
       <div class="product-detail-info-price">
         {{product.price | currency:'USD'}}
       </div>
-      <ng-container *ngIf="!ifInCart(product);else ExistInCart">
-        <button mat-raised-button color="accent" style="width: 200px; margin-bottom: 30px" (click)="addToCart(product)">Add to Cart</button>
+      <ng-container *ngIf="ifPurchased(product.id);else others">
+        <button mat-raised-button disabled style="width: 200px; margin-bottom: 30px">Already purchased</button>
       </ng-container>
-      <ng-template #ExistInCart>
-        <button mat-raised-button disabled style="width: 200px; margin-bottom: 30px">Already in the Cart</button>
+      <ng-template #others>
+        <ng-container *ngIf="!ifInCart(product);else ExistInCart">
+          <button mat-raised-button color="accent" style="width: 200px; margin-bottom: 30px" (click)="addToCart(product)">Add to Cart</button>
+        </ng-container>
+        <ng-template #ExistInCart>
+          <button mat-raised-button disabled style="width: 200px; margin-bottom: 30px">Already in the Cart</button>
+        </ng-template>
       </ng-template>
 
-      <button mat-raised-button color="primary" style="width: 200px">Buy Now</button>
+      <ng-container *ngIf="!ifPurchased(product.id)">
+        <button mat-raised-button color="primary" style="width: 200px" (click)="buyNow(product)">Buy Now</button>
+      </ng-container>
     </div>
   </div>
 

@@ -16,11 +16,17 @@
       </mat-form-field>
     </div>
 
+<!--    <mat-form-field appearance="outline">-->
+<!--      <mat-label>Image URL</mat-label>-->
+<!--      <input type="text" matInput formControlName="image">-->
+<!--    </mat-form-field>-->
+
     <mat-form-field appearance="outline">
-      <mat-label>Image URL</mat-label>
-      <input type="text" matInput formControlName="image">
-      <mat-error *ngIf="addCourseFormGroup.get('image')?.getError('required')">Image URL is required</mat-error>
+      <ngx-mat-file-input formControlName="image" [multiple]="false" accept="image/png, image/jpeg" color="primary">
+      </ngx-mat-file-input>
+      <mat-error *ngIf="addCourseFormGroup.get('image')?.getError('required')">Image is required</mat-error>
     </mat-form-field>
+
 
     <mat-form-field>
       <mat-label>Description</mat-label>

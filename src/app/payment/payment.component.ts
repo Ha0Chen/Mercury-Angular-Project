@@ -35,7 +35,7 @@ export class PaymentComponent {
     private os: OrderService
   ) {
     this.totalPrice = ps.totalPriceInCart;
-    if (localStorage.getItem("token") && this.as.user === null){
+    if (sessionStorage.getItem("token") && this.as.user === null){
       this.as.checkLogin().subscribe(res =>{
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));

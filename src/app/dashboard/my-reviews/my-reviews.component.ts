@@ -60,7 +60,7 @@ export class MyReviewsComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    if (localStorage.getItem("token") && (this.as.user == null)){
+    if (sessionStorage.getItem("token") && (this.as.user == null)){
       this.as.checkLogin().pipe(switchMap(res => {
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));

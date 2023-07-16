@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Product} from "../models/product";
-import {HttpClient, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpParams, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment.development";
 import {Page} from "../models/page";
@@ -39,8 +39,8 @@ export class ProductsService {
     return this.httpClient.put<Product>(`${environment.api}/courses`, product);
   }
 
-  addProduct(product: Product):Observable<Product>{
-    return this.httpClient.post<Product>(`${environment.api}/courses`, product);
+  addProduct(formData:FormData):Observable<Product>{
+    return this.httpClient.post<Product>(`${environment.api}/courses`,formData);
   }
 
   deleteProduct(id:number):Observable<Response>{
@@ -49,7 +49,7 @@ export class ProductsService {
 
 
   saveCart(){
-    localStorage.setItem('cart-items', JSON.stringify(this.cart));
+    sessionStorage.setItem('cart-items', JSON.stringify(this.cart));
   }
 
   addToCart(addedProduct: Product){
@@ -59,7 +59,7 @@ export class ProductsService {
   }
 
   loadCart(){
-    this.cart = JSON.parse(localStorage.getItem('cart-items') as any) || [];
+    this.cart = JSON.parse(sessionStorage.getItem('cart-items') as any) || [];
     let total:number = 0;
     this.cart.forEach(item => {
       total += item.price;
@@ -81,9 +81,13 @@ export class ProductsService {
   }
 
   clearCart(){
-    localStorage.removeItem('cart-items');
+    sessionStorage.removeItem('cart-items');
     this.loadCart();
     this.totalPriceInCart = 0;
+  }
+
+  getCoursesByTeacherName(name: string){
+    return this.httpClient.get<Product[]>(`${environment.api}/courses/teachername/${name}`);
   }
 
 

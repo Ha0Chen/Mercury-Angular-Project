@@ -16,7 +16,6 @@ export class RegisterDialogComponent implements OnInit{
               public dialogRef: MatDialogRef<RegisterDialogComponent>,
               private as: AuthService
   ) {
-
   }
 
   ngOnInit() {
@@ -35,25 +34,20 @@ export class RegisterDialogComponent implements OnInit{
   }
 
   register(){
-    //auth injection and logics..
     const username = this.registerFormGroup.get("username")?.value;
     const password = this.registerFormGroup.get("passwordGroup")?.value["password"];
     const teacher = this.registerFormGroup.get("isTeacher")?.value;
-    // console.log(username, password, isTeacher);
     this.as.register({username, password, teacher}).subscribe(res =>{
       if (res.success){
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(item => item.substring(5));
-        localStorage.setItem('token', res.token);
+        sessionStorage.setItem('token', res.token);
         this.dialogRef.close();
+        window.location.reload();
       }else{
         this.errorMessage = res.message;
       }
-
-      console.log(res);
+      // console.log(res);
     });
-
-
-
   };
 }

@@ -22,8 +22,9 @@ export class LoginDialogComponent {
       if (res.success){
         this.auth.user = JSON.parse(res.user);
         this.auth.roles = res.roles.map(item => item.substring(5));
-        localStorage.setItem('token', res.token);
+        sessionStorage.setItem('token', res.token);
         this.dialogRef.close();
+        window.location.reload();
       }else{
         this.errorMessage = "username or password is wrong";
       }

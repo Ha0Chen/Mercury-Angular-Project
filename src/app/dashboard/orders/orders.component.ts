@@ -3,15 +3,12 @@ import {MatTable, MatTableDataSource} from "@angular/material/table";
 import {Product} from "../../shared/models/product";
 import {MatSort} from "@angular/material/sort";
 import {AuthService} from "../../shared/services/auth.service";
-import {ProductsService} from "../../shared/services/products.service";
-import {UserService} from "../../shared/services/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {OrderService} from "../../shared/services/order.service";
 import {Order} from "../../shared/models/order";
 import {animate, state, style, transition, trigger} from "@angular/animations";
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {switchMap} from "rxjs";
-import {AddCourseComponent} from "../courses-management/add-course/add-course.component";
 import {CommentDialogComponent} from "./comment-dialog/comment-dialog.component";
 
 @Component({
@@ -42,7 +39,7 @@ export class OrdersComponent{
     private dialog: MatDialog,
     private router: Router
   ) {
-    if (localStorage.getItem("token") && (this.as.user === null || this.as.user == null)){
+    if (sessionStorage.getItem("token") && (this.as.user === null || this.as.user == null)){
       this.as.checkLogin().pipe(switchMap(res => {
         this.as.user = JSON.parse(res.user);
         this.as.roles = res.roles.map(res=> res.substring(5));
@@ -50,7 +47,7 @@ export class OrdersComponent{
       })).subscribe(res =>{
         this.dataSource = new MatTableDataSource<Order>(res);
         this.orders = res
-        console.log(res);
+
         this.dataSource.sort = this.sort;
       })
     }else{
@@ -87,6 +84,10 @@ export class OrdersComponent{
   }
 
   jumpToPage(id:number) {
-    this.router.navigate([`courses`, `/${id}`]).catch();
+    this.router.navigate([`courses`, `/${id}`]).then(
+      () => {
+        window.location.reload();
+      }
+    );
   }
 }
