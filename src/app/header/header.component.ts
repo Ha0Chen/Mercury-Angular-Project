@@ -12,7 +12,7 @@ import {AuthService} from "../shared/services/auth.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  title:String = "E-ducateee";
+  title:String = "E-ducateeee";
   @Input() deviceXs?:boolean;
   constructor(public dialog: MatDialog,
               public auth: AuthService) {}
